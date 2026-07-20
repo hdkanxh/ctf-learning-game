@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import StringsTool from '@/components/tools/StringsTool';
 import HexViewer from '@/components/tools/HexViewer';
 
@@ -15,6 +15,7 @@ const tabs: { key: RETab; label: string; icon: string }[] = [
 
 export default function REToolsPage() {
   const [activeTab, setActiveTab] = useState<RETab>('strings');
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [magicInfo, setMagicInfo] = useState('');
   const [xorInput, setXorInput] = useState('');
   const [xorKey, setXorKey] = useState('55');
@@ -103,7 +104,18 @@ export default function REToolsPage() {
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-800">
               💡 通过检查文件的 Magic Bytes（文件头标识）来识别文件类型，即使文件扩展名被修改也能正确识别。
             </div>
-            <input type="file" onChange={checkFileType} className="text-sm" />
+            <input
+              ref={fileInputRef}
+              type="file"
+              onChange={checkFileType}
+              className="hidden"
+            />
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="btn-primary"
+            >
+              📁 选择文件
+            </button>
             {magicInfo && (
               <pre className="p-4 bg-green-50 border border-green-200 rounded-xl font-mono text-sm text-gray-800 whitespace-pre-wrap">
                 {magicInfo}

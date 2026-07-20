@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 // 模拟 HTTP 流量数据（实际关卡会提供真实 JSON 文件）
 interface HttpPacket {
@@ -19,6 +19,7 @@ export default function PcapViewer() {
   const [packets, setPackets] = useState<HttpPacket[]>([]);
   const [selectedPacket, setSelectedPacket] = useState<number | null>(null);
   const [fileName, setFileName] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [filterText, setFilterText] = useState('');
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +63,10 @@ export default function PcapViewer() {
       </div>
 
       <div className="flex items-center gap-3">
-        <input type="file" onChange={handleFileUpload} className="text-sm" />
+        <input ref={fileInputRef} type="file" onChange={handleFileUpload} className="hidden" />
+        <button onClick={() => fileInputRef.current?.click()} className="btn-primary text-sm">
+          📁 选择流量文件
+        </button>
         {fileName && (
           <span className="text-sm text-gray-500 font-mono">{fileName} · {packets.length} 个包</span>
         )}
