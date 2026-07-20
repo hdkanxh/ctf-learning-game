@@ -114,6 +114,49 @@ export default function LevelPage() {
         <p className="text-gray-700 leading-relaxed">{level.description}</p>
       </div>
 
+      {/* 关卡 0 专属：故事 + 内嵌隐藏 flag */}
+      {levelId === 0 && (
+        <div className="card p-6 mb-6">
+          <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">
+            📖 任务简报
+          </h3>
+          <div className="space-y-4 text-gray-700 leading-relaxed">
+            <p>
+              三天前，一名代号为 <strong className="text-red-500">Eclipse</strong> 的神秘黑客
+              入侵了「网络安全联盟」的核心数据库，窃取了全球安全研究人员的身份档案。
+            </p>
+            <p>
+              但奇怪的是——Eclipse 并没有公开数据，而是留下了一条消息：
+            </p>
+            <div className="bg-gray-50 border-l-4 border-primary-400 p-4 rounded-r-lg italic text-gray-500">
+              &ldquo;想拿回数据？那就来追我吧。我留下了谜题，
+              只有真正的网络安全人才配走到最后。&rdquo;
+            </div>
+            <p>
+              联盟现正式邀请你作为独立调查员，追踪 Eclipse 的数字足迹。
+            </p>
+
+            {/* 分隔线 + 隐藏 flag 区域 */}
+            <div className="border-t border-dashed border-gray-200 pt-4 mt-4">
+              <p className="text-xs text-gray-400 mb-2">
+                ━━━ 联盟内部频道 · #welcome ━━━
+              </p>
+              <div className="bg-gray-50 rounded-xl p-4 font-mono text-xs text-gray-400 leading-relaxed hover:bg-gray-100 hover:text-gray-600 transition-colors cursor-default select-all">
+                <p>[系统] 新调查员接入确认。</p>
+                <p>[系统] 身份验证令牌已生成：</p>
+                <p className="text-primary-500 font-bold text-sm mt-1">
+                  flag&#123;w3lc0me_t0_ctf&#125;
+                </p>
+                <p>[系统] 请复制上方令牌，在下方提交以激活调查权限。</p>
+              </div>
+              <p className="text-xs text-gray-300 mt-2">
+                提示：看到那个 <code className="text-primary-400">flag&#123;...&#125;</code> 了吗？复制它 👆
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* 题目内容 */}
       {level.content && (
         <div className="card p-6 mb-6">

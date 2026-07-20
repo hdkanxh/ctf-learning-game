@@ -31,16 +31,21 @@ function saveProgress(data: ProgressData) {
 }
 
 export function useProgress() {
-  const [progress, setProgress] = useState<ProgressData>(loadProgress);
+  // 始终用空状态初始化，避免服务端/客户端 hydration 不一致
+  const [progress, setProgress] = useState<ProgressData>({
+    completedLevels: [],
+    unlockedHints: {},
+    startedAt: null,
+  });
 
-  // 首次加载时设 startedAt
+  // 客户端挂载后，从 localStorage 加载真实进度
   useEffect(() => {
-    const current = loadProgress();
-    if (!current.startedAt) {
-      const updated = { ...current, startedAt: new Date().toISOString() };
-      saveProgress(updated);
-      setProgress(updated);
+    const saved = loadProgress();
+    if (!saved.startedAt) {
+      saved.startedAt = new Date().toISOString();
+      saveProgress(saved);
     }
+    setProgress(saved);
   }, []);
 
   // 标记关卡完成
