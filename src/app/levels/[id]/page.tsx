@@ -141,16 +141,16 @@ export default function LevelPage() {
               <p className="text-xs text-gray-400 mb-2">
                 ━━━ 联盟内部频道 · #welcome ━━━
               </p>
-              <div className="bg-gray-50 rounded-xl p-4 font-mono text-xs text-gray-400 leading-relaxed hover:bg-gray-100 hover:text-gray-600 transition-colors cursor-default select-all">
+              <div className="bg-gray-50 rounded-xl p-4 font-mono text-xs text-gray-400 leading-relaxed">
                 <p>[系统] 新调查员接入确认。</p>
                 <p>[系统] 身份验证令牌已生成：</p>
-                <p className="text-primary-500 font-bold text-sm mt-1">
+                <p className="text-primary-500 font-bold text-sm mt-1 select-all cursor-default">
                   flag&#123;w3lc0me_t0_ctf&#125;
                 </p>
                 <p>[系统] 请复制上方令牌，在下方提交以激活调查权限。</p>
               </div>
               <p className="text-xs text-gray-300 mt-2">
-                提示：看到那个 <code className="text-primary-400">flag&#123;...&#125;</code> 了吗？复制它 👆
+                提示：仔细看系统日志，找到身份验证令牌 👆
               </p>
             </div>
           </div>
