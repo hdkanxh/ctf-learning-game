@@ -53,7 +53,7 @@ export default function PipelineTool() {
       try {
         switch (step.type) {
           case 'caesar':
-            result = caesarDecrypt(result, (step.params?.shift as number) || 3);
+            result = caesarDecrypt(result, caesarShift);
             break;
           case 'base64':
             result = base64Decode(result);
@@ -65,7 +65,7 @@ export default function PipelineTool() {
             result = rot13(result);
             break;
           case 'railfence':
-            result = railFenceDecrypt(result, (step.params?.rails as number) || 3);
+            result = railFenceDecrypt(result, railCount);
             break;
         }
       } catch {

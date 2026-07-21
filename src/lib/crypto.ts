@@ -50,10 +50,20 @@ export function base64Encode(text: string): string {
  * Base64 解码
  */
 export function base64Decode(text: string): string {
-  if (typeof window !== 'undefined') {
-    return decodeURIComponent(escape(atob(text)));
+  // 清理空白字符，补齐缺失的 = 填充符
+  let cleaned = text.trim().replace(/\s/g, '');
+  while (cleaned.length % 4 !== 0) cleaned += '=';
+
+  try {
+    const decoded = atob(cleaned);
+    try {
+      return decodeURIComponent(escape(decoded));
+    } catch {
+      return decoded;
+    }
+  } catch {
+    throw new Error('Base64 解码失败，请检查输入');
   }
-  return Buffer.from(text, 'base64').toString('utf-8');
 }
 
 /**

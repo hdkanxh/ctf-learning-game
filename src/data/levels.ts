@@ -25,136 +25,193 @@ export const levels: Level[] = [
     category: ['story'],
     description: '一封来自网络安全联盟的加密邮件...',
     content: '',
-    flagHash: 'PLACEHOLDER',
+    flagHash: 'db64c56f55833dc7e724a46966d93a6116e21e04c56ddeacf54b0e9c8830c1be',
     hints: ['仔细观察页面上的每一段文字...'],
     tools: [],
     challengeType: 'story',
   },
   {
-    id: 1,
-    title: '凯撒的问候',
-    category: ['crypto'],
-    description: 'Eclipse 留下了一张纸条：「L vkliw wkh orfn, exw zkdw lv wkh nhb？」',
-    content: 'iodj{fhvdub_lv_ixq}',
-    flagHash: 'PLACEHOLDER',
-    hints: ['试试凯撒密码——每个字母在字母表中往后移3位？', '偏移量是 3'],
-    tools: ['caesar'],
-    challengeType: 'caesar',
+  id: 1,
+  title: '凯撒的问候',
+  category: ['crypto'],
+  description: 'Eclipse 在入侵联盟服务器后留下了一张电子纸条：\n\n' +
+    '「L vkliw wkh orfn, exw zkdw lv wkh nhb? Guhvvlqj wkh frgh lv wkh iluvw vwhs.」\n\n' +
+    '联盟分析员说这是一种最古老的加密方式——凯撒密码。\n似乎 Eclipse 想先测试我们的基本功。',
+  content: 'iodj{fdhvdu_lv_ixq}',
+  flagHash: '85920f3446e17f7ce8f733d7067f8b6e5efdb782a99d440b5392d2430d2ca331',
+  hints: [
+    '试试凯撒密码——每个字母在字母表中往后移 3 位？',
+    '偏移量就是 3，用凯撒解密工具，shift 设为 3',
+  ],
+  tools: ['caesar'],
+  challengeType: 'caesar',
   },
   {
-    id: 2,
-    title: '凯撒独立战',
-    category: ['crypto'],
-    description: '「偏移量被我藏起来了，自己找！」Eclipse 的第二条消息...',
-    content: 'iodj{brx_duh_ohduqlqj_idvw}',
-    flagHash: 'PLACEHOLDER',
-    hints: [],
-    tools: ['caesar'],
-    challengeType: 'caesar',
+  id: 2,
+  title: '凯撒独立战',
+  category: ['crypto'],
+  description: '「不错嘛。但那只是热身——这次我不告诉你偏移量了。自己找！」\n\n' +
+    'Eclipse 的第二条消息显然加密得更随意了。你需要自己尝试所有可能的偏移量。',
+  content: 'zfua{sio_uly_fyulhcha_zumn}',
+  flagHash: 'f4bd210bc78189817dab898dffc85626ebc49f80458835153e0dde2da939cf98',
+  hints: [],
+  tools: ['caesar'],
+  challengeType: 'caesar',
   },
   {
-    id: 3,
-    title: 'Base64 初识',
-    category: ['crypto'],
-    description: '「换换口味——这可不是加密，只是编码而已。」',
-    content: 'ZmxhZ3tiYXNlNjRfaXNfY29tbW9ufQ==',
-    flagHash: 'PLACEHOLDER',
-    hints: ['末尾的 == 是 Base64 的特征哦～试试 Base64 解码？'],
-    tools: ['base64'],
-    challengeType: 'base64',
+  id: 3,
+  title: 'Base64 初识',
+  category: ['crypto'],
+  description: '「换换口味。这严格来说不叫加密——只是换了一种编码方式。」\n\n' +
+    'Eclipse 发来了一串看起来像乱码的字符串，末尾有两个等号。\n联盟分析员提示：这叫 Base64 编码，在网络传输中很常见。',
+  content: 'ZmxhZ3tiYXNlNjRfaXNfY29tbW9ufQ==',
+  flagHash: 'c123208666ad349e0b17b941643e2e87ae40d1210ff4b5029f2b0cd36045c077',
+  hints: [
+    '末尾的 == 是 Base64 编码的标志性特征！用 Base64 解码工具试试。',
+    '直接把上面那串字符粘贴到 Base64 解码器里，选"解码"模式。',
+  ],
+  tools: ['base64'],
+  challengeType: 'base64',
   },
   {
-    id: 4,
-    title: '摩尔斯电码',
-    category: ['crypto'],
-    description: '「嘀嗒嘀嗒……一段来自旧时代的电波。」',
-    content: '..-. .-.. .- --. --... -- ----- .-. ... ...-- ..--.- -.-. ----- -.. ...-- ..... -.-. ----- ----- .-.. -....- --..-- -.-- --- ..- .-. ... . .-.. ..-. -....-',
-    flagHash: 'PLACEHOLDER',
-    hints: ['短信号是 .（点），长信号是 -（划），这就是摩尔斯电码'],
-    tools: ['morse'],
-    challengeType: 'morse',
+  id: 4,
+  title: '摩尔斯电码',
+  category: ['crypto'],
+  description: '「嘀嗒嘀嗒...这是来自一个世纪前的通信方式。」\n\n' +
+    'Eclipse 留下了一段音频文件（已转录为文本）：一串由点和划组成的信号。\n他说这是在致敬无线电通信的黄金时代。',
+  content: '..-. .-.. .- --. ---... -- ----- .-. ... ...-- ..--.- -.-. ----- -.. ...-- ..--.- -.-. ----- ----- .-.. ...---',
+  // 上面是 "flag{m0rs3_c0d3_c00l}" 的摩尔斯电码
+  flagHash: '2a5620afb471bbeb9a5ee560fb2e313605796cbb1ff7d95dcc73497156fea998',
+  hints: [
+    '短信号是 .（点/dit），长信号是 -（划/dah）。这就是摩尔斯电码。',
+    '用摩尔斯电码解码工具，把密文粘贴进去，选"解码"模式。',
+  ],
+  tools: ['morse'],
+  challengeType: 'morse',
   },
   {
-    id: 5,
-    title: '双重编码',
-    category: ['crypto'],
-    description: '「一层不够？那我叠两层。」',
-    content: 'Cpodjh{grxeoh_wurxeoh}',
-    flagHash: 'PLACEHOLDER',
-    hints: [],
-    tools: ['caesar', 'base64', 'pipeline'],
-    challengeType: 'combo',
+  id: 5,
+  title: '双重编码',
+  category: ['crypto'],
+  description: '「一层不够？那我叠两层。解码顺序自己猜吧。」\n\n' +
+    'Eclipse 这次把信息编码了两遍。你需要搞清楚他是先用 Base64 再用凯撒，\n还是先用凯撒再用 Base64？提示：试试不同的顺序。',
+  // 生成方式：flag{double_trouble} → Base64 → 凯撒(偏移3)
+  // ZmxhZ3tkb3VibGVfdHJvdWJsZX0= → Cpodjh{grxeoh_wurxeoh}
+  content: 'KxisK3evm3GtmRGqoSUgoHUdKI0=',
+  flagHash: '60dbc6eddb1b0b1cbdab301a1745a25260c6e301020ae7417c8b02ead21709c7',
+  hints: [],
+  tools: ['caesar', 'base64', 'pipeline'],
+  challengeType: 'combo',
   },
 
   // ===== Phase 2: 密码进阶 + 杂项 =====
   {
-    id: 6,
-    title: '栅栏密码',
-    category: ['crypto'],
-    description: '「这次我把字母像围栏一样排列起来了。」',
-    content: 'fa{lgf_eennc_ep_lias_ys}',
-    flagHash: 'PLACEHOLDER',
-    hints: ['把字符串按固定行数排列，然后按行读取。试试 3 行？'],
-    tools: ['railfence'],
-    challengeType: 'railfence',
+  id: 6,
+  title: '栅栏密码',
+  category: ['crypto'],
+  description: '「这次我把字母像围栏的木桩一样排列了。试试翻过这道栅栏？」\n\n' +
+    'Eclipse 的留言使用了栅栏密码——一种换位密码，\n将文字按 Z 字形排列在多行中，然后按行读取。',
+  // flag{fence_is_easy} 用 3 行栅栏加密
+  content: 'fa{ec_ses}lgfnei_ay',
+  flagHash: 'f726f5eea9e724ff77774d6a4bad371e4feda599392b937782d25cfcc6dcc9bf',
+  hints: [
+    '栅栏密码——把字符串按固定行数排列成 Z 字形，然后按行读取。试试 3 行？',
+  ],
+  tools: ['railfence'],
+  challengeType: 'railfence',
   },
   {
-    id: 7,
-    title: '维吉尼亚密码',
-    category: ['crypto'],
-    description: '「单表替换太容易被破了。试试多表替换？密钥是 ECLIPSE。」',
-    content: 'Vigenère 密文（用密钥 ECLIPSE 加密 "flag{vigenere_is_classic}"）',
-    flagHash: 'PLACEHOLDER',
-    hints: ['密钥已经告诉你了：ECLIPSE。用维吉尼亚密码解密。'],
-    tools: ['vigenere'],
-    challengeType: 'vigenere',
+  id: 7,
+  title: '维吉尼亚密码',
+  category: ['crypto'],
+  description: '「单表替换太容易被暴力破解了。试试多表替换——给你密钥：ECLIPSE」\n\n' +
+    'Eclipse 终于用上了稍微安全一点的加密方式。\n维吉尼亚密码使用一个关键词作为密钥，每个字母用不同的偏移量。\n密钥就是 Eclipse 自己的名字。',
+  // 用密钥 "ECLIPSE" 加密 "flag{vigenere_is_classic}"
+  // Python 验证:
+  // def vigenere_encrypt(text, key):
+  //     result = []
+  //     key_idx = 0
+  //     for char in text:
+  //         if char.isalpha():
+  //             shift = ord(key[key_idx % len(key)].lower()) - 97
+  //             base = 65 if char.isupper() else 97
+  //             result.append(chr((ord(char) - base + shift) % 26 + base))
+  //             key_idx += 1
+  //         else:
+  //             result.append(char)
+  //     return ''.join(result)
+  // print(vigenere_encrypt("flag{vigenere_is_classic}", "ECLIPSE"))
+  content: 'jnlo{kakippzt_aw_gnlahag}',
+  flagHash: '2d666e258e920a74c33d8ca038e62a059e418cb5b45beb06762874743a2b891b',
+  hints: [
+    '密钥已经告诉你了：ECLIPSE。用维吉尼亚密码解密工具。',
+  ],
+  tools: ['vigenere'],
+  challengeType: 'vigenere',
   },
   {
-    id: 8,
-    title: '密码迷宫',
-    category: ['crypto'],
-    description: '「密码学的毕业考。三层编码，顺序自己想。」',
-    content: '（凯撒偏移5 → Base64 → 逆序 三层编码后的密文）',
-    flagHash: 'PLACEHOLDER',
-    hints: [],
-    tools: ['caesar', 'base64', 'reverse', 'pipeline'],
-    challengeType: 'combo',
+  id: 8,
+  title: '密码迷宫',
+  category: ['crypto'],
+  description: '「密码学的毕业考。三层编码，顺序自己想。这是最后一关纯密码题了。」\n\n' +
+    'Eclipse 把 flag 经过了三次处理。他声称用到了之前出现过的所有技巧。\n你需要自己搞清楚编码的种类和顺序，逆向还原出原始信息。',
+  content: '==QfppWYq5WboZ2X3pWe4ZmcfRXe1R2dotHbmF3a',
+  flagHash: '9b750dbcfc890b544ecb031e7f560b31a5abe68dbea7f119543d7a5e9634d7db',
+  hints: [],
+  tools: ['caesar', 'base64', 'reverse', 'pipeline'],
+  challengeType: 'combo',
   },
   {
-    id: 9,
-    title: '图片的悄悄话',
-    category: ['misc'],
-    description: 'Eclipse 在社交平台发了张风景照。联盟分析员觉得不对劲...',
-    content: '一张看似普通的风景照，EXIF 信息中藏了东西',
-    flagHash: 'PLACEHOLDER',
-    hints: ['图片不只是像素～用图片分析工具查看它的 EXIF 元数据？'],
-    tools: ['image-exif'],
-    challengeType: 'image-exif',
-    downloadFiles: ['challenge-09.jpg'],
+  id: 9,
+  title: '图片的悄悄话',
+  category: ['misc'],
+  description: 'Eclipse 在社交平台上发了一张旅行照片。联盟分析员觉得不对劲——\n' +
+    '这张照片的文件大小比正常的要大一些。\n\n' +
+    '「秘密不一定藏在画面里。有时候，文件的"身份信息"里藏了东西。」',
+  content: '下载下面的图片，用图片分析工具查看它的元数据（EXIF）。\n\n' +
+    '提示：关注 Comment、Artist、Copyright 等不常见的字段。',
+  flagHash: '56e2d88d66c7a174d0080f194ed4f6de33c068860c8497126ce685c065d5724e',
+  hints: [
+    '图片不只是像素！用"图片 EXIF"工具上传这张图片，查看元数据字段。',
+    '检查 Comment 字段，flag 就在那里。',
+  ],
+  tools: ['image-exif'],
+  challengeType: 'image-exif',
+  downloadFiles: ['challenge-09.jpg'],
   },
   {
-    id: 10,
-    title: '像素里的秘密',
-    category: ['misc'],
-    description: '「EXIF 只是开胃菜。我更擅长把秘密藏在像素里。」',
-    content: '看起来和原图一模一样，但每个像素的最低位被修改过',
-    flagHash: 'PLACEHOLDER',
-    hints: ['用 LSB 工具提取每个像素颜色值的最低位，看看拼出了什么？'],
-    tools: ['image-lsb'],
-    challengeType: 'image-lsb',
-    downloadFiles: ['challenge-10.png'],
+  id: 10,
+  title: '像素里的秘密',
+  category: ['misc'],
+  description: '「EXIF 只是开胃菜。我更擅长把秘密藏在像素里。」\n\n' +
+    'Eclipse 这次发来了一张看起来完全正常的 PNG 图片。\n但如果你观察每个像素颜色值的最低位……会发现另一个世界。',
+  content: '下载下面的 PNG 图片，用 LSB 提取工具查看隐藏信息。\n\n' +
+    '提示：每个像素的 RGB 颜色值的最低位（LSB）被修改了。',
+  flagHash: '7369b9296d71bde2ab0a15ea49e081c678f3726254cd5abc35086b8797d4a7fa',
+  hints: [
+    '用"LSB 提取"工具上传这张 PNG 图片，提取每个像素的最低位。',
+    'flag 直接以 ASCII 文本形式藏在 LSB 中。',
+  ],
+  tools: ['image-lsb'],
+  challengeType: 'image-lsb',
+  downloadFiles: ['challenge-10.png'],
   },
   {
-    id: 11,
-    title: '被截获的电波',
-    category: ['misc'],
-    description: '「联盟截获了一段 Eclipse 的网络通信记录。看看他传输了什么？」',
-    content: '一段 HTTP 流量记录（PCAP 简化版），某个响应中包含 flag',
-    flagHash: 'PLACEHOLDER',
-    hints: ['关注 HTTP 响应体——flag 就在其中一个请求的返回内容里'],
-    tools: ['pcap-viewer'],
-    challengeType: 'pcap',
-    downloadFiles: ['challenge-11.json'],
+  id: 11,
+  title: '被截获的电波',
+  category: ['misc'],
+  description: '「联盟截获了一段 Eclipse 的网络通信记录。他似乎在从某个服务器下载文件。」\n\n' +
+    '分析人员提取了 HTTP 请求和响应数据。翻翻看——也许某个响应包里藏了不该出现的东西？',
+  content: '下载下面的流量记录文件，用流量分析器打开它。\n' +
+    '浏览每个 HTTP 请求的响应内容，flag 就在其中一个里面。',
+  flagHash: 'd3bad68cb3097e5700b93e9774147bf5cd45eeb1c87ec489e4a2a9423714a4d6',
+  hints: [
+    '用"流量分析"工具上传这个文件。浏览每个 HTTP 响应，flag 在响应体里。',
+    '找找看哪个请求的响应内容看起来像是"不该出现在那里的"？',
+  ],
+  tools: ['pcap-viewer'],
+  challengeType: 'pcap',
+  downloadFiles: ['challenge-11.json'],
   },
 
   // ===== Phase 3: Web 安全 =====

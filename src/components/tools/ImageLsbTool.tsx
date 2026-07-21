@@ -1,12 +1,11 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 
 export default function ImageLsbTool() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [lsbText, setLsbText] = useState('');
   const [loading, setLoading] = useState(false);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const extractLSB = (file: File) => {
@@ -16,40 +15,49 @@ export default function ImageLsbTool() {
 
     const img = new Image();
     img.onload = () => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      if (!ctx) {
+        setLsbText('[错误] 无法创建画布');
+        setLoading(false);
+        return;
+      }
+      // 关键：禁用平滑，避免像素值变化
+      ctx.imageSmoothingEnabled = false;
       ctx.drawImage(img, 0, 0);
-      const imageData = ctx.getImageData(0, 0, img.width, img.height);
+
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const pixels = imageData.data;
 
-      // 从每个像素的 R, G, B 最低位提取数据
+      // 按行优先提取（匹配 Python 嵌入顺序：for y for x）
       let bits = '';
-      for (let i = 0; i < pixels.length; i += 4) {
-        bits += (pixels[i] & 1).toString();       // R LSB
-        bits += (pixels[i + 1] & 1).toString();   // G LSB
-        bits += (pixels[i + 2] & 1).toString();   // B LSB
-      }
-
-      // 每 8 位转一个字符
-      let text = '';
-      for (let i = 0; i < bits.length - 7; i += 8) {
-        const byte = bits.slice(i, i + 8);
-        const charCode = parseInt(byte, 2);
-        if (charCode >= 32 && charCode <= 126) {
-          text += String.fromCharCode(charCode);
-        } else if (charCode === 0) {
-          break; // null 终止
+      for (let y = 0; y < canvas.height; y++) {
+        for (let x = 0; x < canvas.width; x++) {
+          const i = (y * canvas.width + x) * 4;
+          bits += (pixels[i] & 1).toString();       // R
+          bits += (pixels[i + 1] & 1).toString();   // G
+          bits += (pixels[i + 2] & 1).toString();   // B
         }
       }
 
-      // 尝试提取 flag
+      let text = '';
+      for (let i = 0; i < bits.length - 7; i += 8) {
+        const charCode = parseInt(bits.slice(i, i + 8), 2);
+        if (charCode >= 32 && charCode <= 126) {
+          text += String.fromCharCode(charCode);
+        } else if (charCode === 0) {
+          break;
+        }
+      }
+
       const flagMatch = text.match(/flag\{[^}]+\}/i);
       setLsbText(flagMatch ? flagMatch[0] : text.slice(0, 500));
+      setLoading(false);
+    };
+    img.onerror = () => {
+      setLsbText('[错误] 图片加载失败');
       setLoading(false);
     };
     img.src = url;
@@ -74,8 +82,6 @@ export default function ImageLsbTool() {
       </button>
 
       {loading && <p className="text-gray-500">正在提取 LSB 编码数据...</p>}
-
-      <canvas ref={canvasRef} className="hidden" />
 
       {imageUrl && (
         <div className="border border-gray-200 rounded-xl overflow-hidden">

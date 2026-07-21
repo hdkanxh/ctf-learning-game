@@ -1,0 +1,90 @@
+{
+  "description": "Eclipse 网络流量记录 - 2024-07-15 截获",
+  "packets": [
+    {
+      "id": 1,
+      "method": "GET",
+      "host": "eclipse-cdn.net",
+      "path": "/images/avatar.png",
+      "requestHeaders": {
+        "User-Agent": "Mozilla/5.0",
+        "Accept": "image/png"
+      },
+      "requestBody": "",
+      "responseStatus": 200,
+      "responseHeaders": {
+        "Content-Type": "image/png",
+        "Content-Length": "2847"
+      },
+      "responseBody": "[二进制图片数据 - 已省略]"
+    },
+    {
+      "id": 2,
+      "method": "GET",
+      "host": "eclipse-cdn.net",
+      "path": "/css/style.css",
+      "requestHeaders": {
+        "User-Agent": "Mozilla/5.0",
+        "Accept": "text/css"
+      },
+      "requestBody": "",
+      "responseStatus": 200,
+      "responseHeaders": {
+        "Content-Type": "text/css",
+        "Content-Length": "512"
+      },
+      "responseBody": "body { background: #1a1a2e; color: #e0e0e0; }\n.container { max-width: 800px; margin: auto; }"
+    },
+    {
+      "id": 3,
+      "method": "GET",
+      "host": "eclipse-cdn.net",
+      "path": "/api/config",
+      "requestHeaders": {
+        "User-Agent": "Mozilla/5.0",
+        "Accept": "application/json"
+      },
+      "requestBody": "",
+      "responseStatus": 200,
+      "responseHeaders": {
+        "Content-Type": "application/json",
+        "Content-Length": "156"
+      },
+      "responseBody": "{\n  \"version\": \"2.4.1\",\n  \"debug\": false,\n  \"maintenance\": false,\n  \"note\": \"Nothing interesting here...\"\n}"
+    },
+    {
+      "id": 4,
+      "method": "POST",
+      "host": "eclipse-cdn.net",
+      "path": "/api/auth",
+      "requestHeaders": {
+        "User-Agent": "EclipseClient/3.0",
+        "Content-Type": "application/json"
+      },
+      "requestBody": "{\"username\": \"eclipse\", \"token\": \"***REDACTED***\"}",
+      "responseStatus": 200,
+      "responseHeaders": {
+        "Content-Type": "application/json",
+        "Content-Length": "98"
+      },
+      "responseBody": "{\n  \"status\": \"authenticated\",\n  \"message\": \"Welcome back, Eclipse.\",\n  \"secret_note\": \"flag{p4ck3t_an4lys1s_r0cks}\"\n}"
+    },
+    {
+      "id": 5,
+      "method": "GET",
+      "host": "eclipse-cdn.net",
+      "path": "/api/files/list",
+      "requestHeaders": {
+        "User-Agent": "EclipseClient/3.0",
+        "Authorization": "Bearer ***REDACTED***"
+      },
+      "requestBody": "",
+      "responseStatus": 403,
+      "responseHeaders": {
+        "Content-Type": "application/json",
+        "Content-Length": "45"
+      },
+      "responseBody": "{\n  \"error\": \"Token expired. Please re-authenticate.\"\n}"
+    }
+  ]
+}
