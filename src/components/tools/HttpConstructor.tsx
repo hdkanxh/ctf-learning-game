@@ -89,8 +89,11 @@ export default function HttpConstructor() {
           value={headers}
           onChange={(e) => setHeaders(e.target.value)}
           className="input-field h-20 font-mono text-sm"
-          placeholder='{"User-Agent": "EclipseBot/1.0", "Referer": "http://admin"}'
+          placeholder='{"User-Agent": "EclipseBot/1.0"}'
         />
+        <p className="text-xs text-gray-400 mt-1">
+          💡 格式：&#123;"Header名": "值"&#125;，多个用逗号分隔
+        </p>
       </div>
 
       {/* 请求体 */}

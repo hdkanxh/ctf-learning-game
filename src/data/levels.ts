@@ -216,91 +216,125 @@ export const levels: Level[] = [
 
   // ===== Phase 3: Web 安全 =====
   {
-    id: 12,
-    title: '不能说的秘密',
-    category: ['web'],
-    description: '通过流量分析，你发现了一个网址。这是 Eclipse 的个人博客？',
-    content: '查看这个网页的源代码，也许能找到有趣的注释...',
-    flagHash: 'PLACEHOLDER',
-    hints: ['右键 → 查看网页源代码？或者用我们的源码查看面板？'],
-    tools: ['source-viewer'],
-    challengeType: 'web-source',
-    webChallengeUrl: '/challenges/eclipse-blog',
+  id: 12,
+  title: '不能说的秘密',
+  category: ['web'],
+  description: '通过流量分析，你发现了一个网址。点进去——这是 Eclipse 的个人博客？\n\n' +
+    '看起来就是一个普通的技术博客。但 Eclipse 这种人，会在自己的博客上留下什么？\n' +
+    '试试查看网页的源代码。',
+  content: '打开 Eclipse 的博客，查看网页的 HTML 源代码。\n\n' +
+    '在 VS Code 中也可以直接打开 src/app/challenges/eclipse-blog/page.tsx 查看源码——模仿攻击者的视角。',
+  flagHash: '6c5d0ebbc86002b7328e60198a46b0bb1a66ef6cbb0afdcdcd4bbaaa9a1f8dd2',
+  hints: [
+    '右键页面 → 查看网页源代码？或者用"源码查看"工具获取页面 HTML。',
+    '搜索 "flag" 或 "注释" —— HTML 注释用 <!-- --> 包裹。',
+  ],
+  tools: ['source-viewer'],
+  challengeType: 'web-source',
+  webChallengeUrl: '/challenges/eclipse-blog',
   },
   {
-    id: 13,
-    title: '谁才是管理员',
-    category: ['web'],
-    description: '「博客有个会员专区。但它的登录验证...好像不太靠谱？」',
-    content: '修改 Cookie 伪装成管理员',
-    flagHash: 'PLACEHOLDER',
-    hints: ['看看浏览器里存了什么 Cookie？把 role 的值改一下试试？'],
-    tools: ['cookie-editor'],
-    challengeType: 'web-cookie',
-    webChallengeUrl: '/challenges/eclipse-blog/admin',
+  id: 13,
+  title: '谁才是管理员',
+  category: ['web'],
+  description: '「博客有个会员专区。但它的登录验证……好像不太靠谱？」\n\n' +
+    'Eclipse 的博客会员专区通过检查浏览器 Cookie 来判断用户身份。\n' +
+    '但你发现 Cookie 是可以被用户随意修改的……',
+  content: '访问会员专区页面，使用 Cookie 编辑工具将 role 从 guest 改为 admin。',
+  flagHash: '82cec5fea11c2d511951b75c8cb0a3e12a656f9a039544f13a35648e147a8f88',
+  hints: [
+    '用"Cookie 编辑器"工具查看当前 Cookie。把 role=guest 改成 role=admin。',
+    '修改 Cookie 后刷新页面，会员专区就会显示隐藏内容。',
+  ],
+  tools: ['cookie-editor'],
+  challengeType: 'web-cookie',
+  webChallengeUrl: '/challenges/eclipse-blog/admin',
   },
   {
-    id: 14,
-    title: '翻墙找文件',
-    category: ['web'],
-    description: '「Eclipse 的博客有个文件查看功能...但过滤做得不太好。」',
-    content: '通过路径遍历漏洞读取服务器上的秘密文件',
-    flagHash: 'PLACEHOLDER',
-    hints: [],
-    tools: ['http-constructor'],
-    challengeType: 'web-pathtraversal',
-    webChallengeUrl: '/challenges/eclipse-blog/files',
+  id: 14,
+  title: '翻墙找文件',
+  category: ['web'],
+  description: '「博客有个文件查看功能……但 Eclipse 似乎忘记做路径过滤了。」\n\n' +
+    '文件查看器通过 URL 参数 ?file= 指定文件名。\n' +
+    '如果直接拼接用户输入到文件路径中，会发生什么？',
+  content: '文件查看器 URL：/challenges/eclipse-blog/files?file=welcome.txt\n\n' +
+    '尝试修改 file 参数的值来读取其他文件。\n' +
+    '也许服务器上有个 secret 目录？',
+  flagHash: '39cdccbd4c2acbefe8e1e269237c61a8f945e9804d611427a960a985646f79d2',
+  hints: [],
+  tools: ['http-constructor'],
+  challengeType: 'web-pathtraversal',
+  webChallengeUrl: '/challenges/eclipse-blog/files',
   },
   {
-    id: 15,
-    title: '双重身份',
-    category: ['web', 'crypto'],
-    description: '「在 Eclipse 服务器深处发现了一个加密接口...」',
-    content: '修改请求头 + Base64 解码',
-    flagHash: 'PLACEHOLDER',
-    hints: [],
-    tools: ['http-constructor', 'base64'],
-    challengeType: 'web-crypto',
-    webChallengeUrl: '/challenges/eclipse-blog/api/secret',
-  },
+  id: 15,
+  title: '伪装者',
+  category: ['web', 'crypto'],
+  description: '「在 Eclipse 的服务器深处，发现了一个隐藏的 API 接口。\n' +
+    '但它只允许 Eclipse 的内部工具访问……或许你可以伪装成它？」\n\n' +
+    '使用 HTTP 请求构造器添加 X-Client-ID 头。',
+  content: '直接访问 API 会看到网关拦截页面，里面有线索。\n\n' +
+    '找到合法身份后，用 HTTP 请求构造器添加 X-Client-ID 请求头，\n获取加密配置后解码得到 flag。',
+  flagHash: '678bdebd65549b4a527f5f9ea8894afce2c3eb215f3cd1f45708ff7e3a2ee22b',
+  hints: [],
+  tools: ['http-constructor', 'base64'],
+  challengeType: 'web-crypto',
+  webChallengeUrl: '/challenges/eclipse-blog/api/secret',
+},
 
   // ===== Phase 4: 逆向工程 =====
   {
-    id: 16,
-    title: '字符串寻宝',
-    category: ['re'],
-    description: '「Eclipse 有个加密工具程序。先看看里面写了什么？」',
-    content: '一个简单编译的 C 程序，flag 就藏在明文字符串中',
-    flagHash: 'PLACEHOLDER',
-    hints: ['二进制文件里藏着可读的字符串！用 Strings 提取工具试试？'],
-    tools: ['strings', 'hex-viewer'],
-    challengeType: 're-strings',
-    downloadFiles: ['challenge-16.exe'],
+  id: 16,
+  title: '字符串寻宝',
+  category: ['re'],
+  description: '「Eclipse 有个加密工具程序。先别急着运行它——看看里面写了什么？」\n\n' +
+    '分析二进制文件的第一步往往不是反编译，而是提取字符串。\n' +
+    '很多程序员会在代码中硬编码密码、密钥和……flag。',
+  content: '下载 challenge-16 程序，用 Strings 提取工具分析。\n\n' +
+    '提示：不需要运行程序。flag 就在字符串列表中。',
+  flagHash: '970fe86712c1bb73390c02119a65452f039bf68d16f0543a4ebd666cd4fa5024',
+  hints: [
+    '不需要运行程序！用"Strings 提取"工具上传文件，查看所有可读字符串。',
+    '直接找 flag{...} 格式的字符串，就在输出结果中。',
+  ],
+  tools: ['strings', 'hex-viewer'],
+  challengeType: 're-strings',
+  downloadFiles: ['challenge-16.c'],
   },
   {
-    id: 17,
-    title: '异或的秘密',
-    category: ['re'],
-    description: '「第二个程序做了加密。不过——异或运算嘛，你懂的。」',
-    content: '程序将输入与 0x55 做 XOR 后比对密文',
-    flagHash: 'PLACEHOLDER',
-    hints: ['反编译代码显示使用了 XOR 0x55。试试反推密文？'],
-    tools: ['strings', 'hex-viewer', 'xor-calc'],
-    challengeType: 're-xor',
-    downloadFiles: ['challenge-17.exe'],
+  id: 17,
+  title: '异或的秘密',
+  category: ['re'],
+  description: '「第二个程序做了加密。不过——异或运算嘛，你懂的。」\n\n' +
+    'Eclipse 的这个程序会检查你的输入，但检查方式是用 XOR 0x55 处理后比较。\n' +
+    '如果你能找到密文，就可以反推出正确的输入。',
+  content: '下载 challenge-17 程序（源码或二进制）。\n\n' +
+    '方法1：查看源码中的 encrypted[] 数组，用 XOR 工具计算每个字节 ^ 0x55。\n' +
+    '方法2：用 Strings 工具找线索，用 XOR 分析器反推。',
+  flagHash: '058716e43294521a5b0c234317f9a2e196d8cd0001eae4f3a185658a9676e958',
+  hints: [
+    '查看源码中的 encrypted[] 数组或 strings 输出。',
+    '每个字节 XOR 0x55 就能得到正确的密码。用 XOR 计算器。',
+  ],
+  tools: ['strings', 'hex-viewer', 'xor-calc'],
+  challengeType: 're-xor',
+  downloadFiles: ['challenge-17.c'],
   },
   {
-    id: 18,
-    title: '层层解码',
-    category: ['re', 'crypto'],
-    description: '「最后一个程序，Eclipse 花了点心思。不过套路差不多。」',
-    content: '程序对 flag 做了 Base64 → ROT13 → 逆序，分析解码流程',
-    flagHash: 'PLACEHOLDER',
-    hints: [],
-    tools: ['strings', 'hex-viewer', 'base64', 'rot13', 'reverse', 'pipeline'],
-    challengeType: 're-crypto',
-    downloadFiles: ['challenge-18.exe'],
-  },
+  id: 18,
+  title: '层层解码',
+  category: ['re', 'crypto'],
+  description: '「最后一个程序，Eclipse 花了点心思。不过套路差不多。」\n\n' +
+    '这个程序存储的不是明文 flag，而是经过多层编码的密文。\n' +
+    '先用 Strings 工具看看程序里藏了什么，然后想想之前学过的技巧。',
+  content: '下载 challenge-18 程序。\n\n' +
+    '用 Strings 工具提取关键信息，在解码流水线中还原 flag。',
+  flagHash: '8e64a38d454269a92cc0183558c5b905cad7581e1fc33a7d5c09113ce238eef6',
+  hints: [],
+  tools: ['strings', 'base64', 'rot13', 'reverse', 'pipeline'],
+  challengeType: 're-crypto',
+  downloadFiles: ['challenge-18.c'],
+},
 
   // ===== Phase 5: 终局之战 =====
   {

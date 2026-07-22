@@ -3,7 +3,7 @@ import Link from 'next/link';
 const toolCategories = [
   {
     title: '🔐 密码学工具箱',
-    description: '凯撒密码 · Base64 · 摩尔斯电码 · 栅栏密码 · 维吉尼亚密码 · XOR 计算器 · 解码流水线',
+    description: '凯撒密码 · Base64 · 摩尔斯电码 · 栅栏密码 · 维吉尼亚密码 · ROT13 · 逆序 · 解码流水线',
     href: '/tools/crypto',
     color: 'border-l-amber-400',
   },

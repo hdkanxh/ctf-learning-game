@@ -157,6 +157,24 @@ export default function LevelPage() {
         </div>
       )}
 
+      {/* Web 挑战入口 */}
+      {level.webChallengeUrl && (
+        <div className="card p-6 mb-6">
+          <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">🌐 目标页面</h3>
+          <p className="text-sm text-gray-500 mb-3">
+            此题需要访问以下页面来寻找线索：
+          </p>
+          <a
+            href={level.webChallengeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary inline-flex items-center gap-2"
+          >
+            🚀 打开挑战页面
+          </a>
+        </div>
+      )}
+
       {/* 题目内容 */}
       {level.content && (
         <div className="card p-6 mb-6">
@@ -243,11 +261,10 @@ export default function LevelPage() {
             onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
             placeholder="flag{...}"
             className="input-field flex-1"
-            disabled={completed}
           />
           <button
             onClick={handleSubmit}
-            disabled={completed || submitting || !flagInput.trim()}
+            disabled={submitting || !flagInput.trim()}
             className="btn-primary whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {submitting ? '验证中...' : '✅ 提交'}

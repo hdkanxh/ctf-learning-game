@@ -21,8 +21,8 @@ const FLAG_HASHES: Record<string, string> = {
   '14': '39cdccbd4c2acbefe8e1e269237c61a8f945e9804d611427a960a985646f79d2',  // flag{p4th_tr4v3rs4l_3z}
   '15': '678bdebd65549b4a527f5f9ea8894afce2c3eb215f3cd1f45708ff7e3a2ee22b',  // flag{w3b_4nd_crypt0_t0g3th3r}
   '16': '970fe86712c1bb73390c02119a65452f039bf68d16f0543a4ebd666cd4fa5024',  // flag{str1ngs_1s_p0w3rful}
-  '17': 'f06d3d9fc34e308124035853861c010cb1a769d256d154996ebbcc1c3c72a3b5',  // flag{x0r_r3v3rs1ng_fun}
-  '18': '831c3eae2b301b1068b7a85f09c326295aa96de6895e8910805f1b8592702b89',  // flag{r3v3rs3_4nd_d3c0d3}
+  '17': '058716e43294521a5b0c234317f9a2e196d8cd0001eae4f3a185658a9676e958',  // flag{you_got_xor}
+  '18': '8e64a38d454269a92cc0183558c5b905cad7581e1fc33a7d5c09113ce238eef6',  // flag{r3v3rs3_4nd_d3c0d3!}
   '19': '49fabd9fadc38ac1ec3bf48bf79e982601544d4773aaa7fb8486fe915f4330c9',  // flag{thr33_1n_0n3_g4t3}
   '20': 'd62a2af5668074898e0471f75b4dceaa77f6ad253b98a418d9e8d645621db5d9',  // flag{m1rr0r_m4z3_c0nqu3r3d}
   '21': '6a102e55154d1de588858f4907ec64676e998c7170448f3c3dbc30b93fd3087e',  // flag{3cl1ps3_l0c4t10n_b31j1ng_h41d14n}
