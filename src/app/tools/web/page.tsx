@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePersistedState } from '@/hooks/usePersistedState';
 import CookieEditor from '@/components/tools/CookieEditor';
 import HttpConstructor from '@/components/tools/HttpConstructor';
@@ -112,6 +112,11 @@ export default function WebToolsPage() {
   const [activeTab, setActiveTab] = usePersistedState<WebTab>('web-tab', 'source');
   const [url, setUrl] = usePersistedState('web-url', '');
   const [source, setSource] = useState('');
+
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '') as WebTab;
+    if (hash && tabs.some(t => t.key === hash)) setActiveTab(hash);
+  }, []);
   const [report, setReport] = useState<SourceReport | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -137,9 +142,25 @@ export default function WebToolsPage() {
 
   return (
     <div className="max-w-4xl mx-auto animate-fade-in">
-      <div className="text-center mb-8">
+      <div className="text-center mb-4">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">🌐 Web 调试器</h1>
         <p className="text-gray-500">查看源码、修改 Cookie、构造 HTTP 请求</p>
+      </div>
+
+      <div className="flex justify-center gap-2 mb-6">
+        {[
+          { key: 'crypto', label: '🔐 密码学', href: '/tools/crypto' },
+          { key: 'misc', label: '🧩 杂项', href: '/tools/misc' },
+          { key: 'web', label: '🌐 Web', href: '/tools/web' },
+          { key: 're', label: '🔧 逆向', href: '/tools/re' },
+        ].map(cat => (
+          <a key={cat.key} href={cat.href}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              'web' === cat.key ? 'bg-primary-500 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+            }`}>
+            {cat.label}
+          </a>
+        ))}
       </div>
 
       <div className="flex flex-wrap gap-2 mb-6 overflow-x-auto pb-1">

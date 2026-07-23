@@ -229,15 +229,38 @@ export default function LevelPage() {
         <div className="card p-6 mb-6">
           <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">🔧 推荐工具</h3>
           <div className="flex gap-2 flex-wrap">
-            {level.tools.map((tool) => (
-              <a
-                key={tool}
-                href={`/tools#${tool}`}
-                className="text-sm text-primary-600 bg-primary-50 hover:bg-primary-100 px-3 py-1.5 rounded-lg transition-colors"
-              >
-                🛠️ {tool}
-              </a>
-            ))}
+            {level.tools.map((tool) => {
+              // 工具名 → 页面路径和 hash 的映射
+              const toolMap: Record<string, string> = {
+                'caesar': '/tools/crypto#caesar',
+                'base64': '/tools/crypto#base64',
+                'morse': '/tools/crypto#morse',
+                'railfence': '/tools/crypto#railfence',
+                'vigenere': '/tools/crypto#vigenere',
+                'pipeline': '/tools/crypto#pipeline',
+                'reverse': '/tools/crypto#reverse',
+                'rot13': '/tools/crypto#rot13',
+                'image-exif': '/tools/misc#image-exif',
+                'image-lsb': '/tools/misc#image-lsb',
+                'strings': '/tools/re#strings',
+                'hex-viewer': '/tools/re#hex',
+                'pcap-viewer': '/tools/misc#pcap',
+                'cookie-editor': '/tools/web#cookie',
+                'http-constructor': '/tools/web#http',
+                'source-viewer': '/tools/web#source',
+                'xor-calc': '/tools/re#xor',
+              };
+              const href = toolMap[tool] || '/tools';
+              return (
+                <a
+                  key={tool}
+                  href={href}
+                  className="text-sm text-primary-600 bg-primary-50 hover:bg-primary-100 px-3 py-1.5 rounded-lg transition-colors"
+                >
+                  🛠️ {tool}
+                </a>
+              );
+            })}
           </div>
         </div>
       )}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { usePersistedState } from '@/hooks/usePersistedState';
 import StringsTool from '@/components/tools/StringsTool';
 import HexViewer from '@/components/tools/HexViewer';
@@ -17,6 +17,11 @@ const tabs: { key: RETab; label: string; icon: string }[] = [
 export default function REToolsPage() {
   const [activeTab, setActiveTab] = usePersistedState<RETab>('re-tab', 'strings');
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '') as RETab;
+    if (hash && tabs.some(t => t.key === hash)) setActiveTab(hash);
+  }, []);
   const [magicInfo, setMagicInfo] = useState('');
   const [xorInput, setXorInput] = usePersistedState('xor-input', '');
   const [xorKey, setXorKey] = usePersistedState('xor-key', '55');
@@ -93,9 +98,25 @@ export default function REToolsPage() {
 
   return (
     <div className="max-w-4xl mx-auto animate-fade-in">
-      <div className="text-center mb-8">
+      <div className="text-center mb-4">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">🔧 逆向分析器</h1>
         <p className="text-gray-500">分析二进制文件，提取字符串，查看十六进制</p>
+      </div>
+
+      <div className="flex justify-center gap-2 mb-6">
+        {[
+          { key: 'crypto', label: '🔐 密码学', href: '/tools/crypto' },
+          { key: 'misc', label: '🧩 杂项', href: '/tools/misc' },
+          { key: 'web', label: '🌐 Web', href: '/tools/web' },
+          { key: 're', label: '🔧 逆向', href: '/tools/re' },
+        ].map(cat => (
+          <a key={cat.key} href={cat.href}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              're' === cat.key ? 'bg-primary-500 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+            }`}>
+            {cat.label}
+          </a>
+        ))}
       </div>
 
       <div className="flex flex-wrap gap-2 mb-6 overflow-x-auto pb-1">

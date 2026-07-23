@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePersistedState } from '@/hooks/usePersistedState';
 import ImageExifTool from '@/components/tools/ImageExifTool';
 import ImageLsbTool from '@/components/tools/ImageLsbTool';
@@ -21,11 +21,32 @@ const tabs: { key: MiscTab; label: string; icon: string }[] = [
 export default function MiscToolsPage() {
   const [activeTab, setActiveTab] = usePersistedState<MiscTab>('misc-tab', 'image-exif');
 
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '') as MiscTab;
+    if (hash && tabs.some(t => t.key === hash)) setActiveTab(hash);
+  }, []);
+
   return (
     <div className="max-w-4xl mx-auto animate-fade-in">
-      <div className="text-center mb-8">
+      <div className="text-center mb-4">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">🧩 杂项分析器</h1>
         <p className="text-gray-500">图片分析、文件检查、流量查看</p>
+      </div>
+
+      <div className="flex justify-center gap-2 mb-6">
+        {[
+          { key: 'crypto', label: '🔐 密码学', href: '/tools/crypto' },
+          { key: 'misc', label: '🧩 杂项', href: '/tools/misc' },
+          { key: 'web', label: '🌐 Web', href: '/tools/web' },
+          { key: 're', label: '🔧 逆向', href: '/tools/re' },
+        ].map(cat => (
+          <a key={cat.key} href={cat.href}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              'misc' === cat.key ? 'bg-primary-500 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+            }`}>
+            {cat.label}
+          </a>
+        ))}
       </div>
 
       <div className="flex flex-wrap gap-2 mb-6 overflow-x-auto pb-1">

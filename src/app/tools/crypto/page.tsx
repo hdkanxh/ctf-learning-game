@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePersistedState } from '@/hooks/usePersistedState';
 import CaesarTool from '@/components/tools/CaesarTool';
 import Base64Tool from '@/components/tools/Base64Tool';
@@ -28,15 +28,38 @@ export default function CryptoToolsPage() {
   const [input, setInput] = usePersistedState('crypto-input', '');
   const [output, setOutput] = usePersistedState('crypto-output', '');
 
+  // URL hash 跳转到指定工具
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '') as ToolTab;
+    if (hash && tabs.some(t => t.key === hash)) setActiveTab(hash);
+  }, []);
+
   // 简单工具的处理函数
   const handleReverse = () => setOutput(reverseString(input));
   const handleRot13 = () => setOutput(rot13(input));
 
   return (
     <div className="max-w-4xl mx-auto animate-fade-in">
-      <div className="text-center mb-8">
+      <div className="text-center mb-4">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">🔐 密码学工具箱</h1>
         <p className="text-gray-500">所有编码解码工具，一站式搞定</p>
+      </div>
+
+      {/* 类别导航 */}
+      <div className="flex justify-center gap-2 mb-6">
+        {[
+          { key: 'crypto', label: '🔐 密码学', href: '/tools/crypto' },
+          { key: 'misc', label: '🧩 杂项', href: '/tools/misc' },
+          { key: 'web', label: '🌐 Web', href: '/tools/web' },
+          { key: 're', label: '🔧 逆向', href: '/tools/re' },
+        ].map(cat => (
+          <a key={cat.key} href={cat.href}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              'crypto' === cat.key ? 'bg-primary-500 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+            }`}>
+            {cat.label}
+          </a>
+        ))}
       </div>
 
       {/* 工具标签切换 */}
