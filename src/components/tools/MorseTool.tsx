@@ -35,6 +35,17 @@ export default function MorseTool() {
         💡 摩尔斯电码使用点（.）和划（-）表示字母。单词之间用空格分隔。
       </div>
 
+      <details className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <summary className="text-sm font-medium text-gray-600 cursor-pointer">📖 原理</summary>
+        <div className="mt-2 text-sm text-gray-600 leading-relaxed space-y-2">
+          <p>摩尔斯电码用<strong>点（.）和划（-）</strong>的组合表示每个字符。</p>
+          <p>规则：点 = 短信号（1 个单位），划 = 长信号（3 个单位），字母间用空格分隔。</p>
+          <p>例如：SOS = <code className="bg-gray-200 px-1 rounded">··· --- ···</code></p>
+          <p>常用字母的摩尔斯码较短（E = .，T = -），不常用的较长——这是一种基于频率的优化设计。</p>
+          <p className="mt-3 text-amber-700 bg-amber-50 rounded-lg p-3 text-xs">🎯 CTF 常见考法：题目可能提供音频文件（WAV/MP3）让你听译摩尔斯电码，或给出点划文本让你解码。进阶考法：将摩尔斯电码隐藏在音频频谱图中，或者使用空格/制表符代替点和划（Whitespace编码）。</p>
+        </div>
+      </details>
+
       <div className="flex gap-3">
         <button
           onClick={() => { setMode('decode'); setOutput(''); }}

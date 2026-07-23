@@ -38,6 +38,17 @@ export default function Base64Tool() {
         💡 Base64 是一种编码方式，不是加密。特征：只包含 A-Z, a-z, 0-9, +, / 和末尾的 = 填充符。
       </div>
 
+      <details className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <summary className="text-sm font-medium text-gray-600 cursor-pointer">📖 原理</summary>
+        <div className="mt-2 text-sm text-gray-600 leading-relaxed space-y-2">
+          <p>Base64 将每 3 个字节（24 bit）拆分为 4 个 6 bit 的组，每组映射到 64 个可打印字符之一（A-Z, a-z, 0-9, +, /）。</p>
+          <p>如果原始数据不是 3 的倍数，用 = 号填充到 4 的倍数。</p>
+          <p>例如 "<code className="bg-gray-200 px-1 rounded">Man</code>" → Base64 → "<code className="bg-gray-200 px-1 rounded">TWFu</code>"</p>
+          <p>Base64 不是加密！它只是换了一种表示方式，任何人都可以解码。</p>
+          <p className="mt-3 text-amber-700 bg-amber-50 rounded-lg p-3 text-xs">🎯 CTF 常见考法：数据末尾有 = 或 == 是 Base64 的明显标志。简单题直接解码即可；进阶题会将 Base64 与其他加密组合，或进行多次 Base64 编码来增加解码层数。有时 Base64 编码的内容不是文本而是图片/压缩包——注意输出内容。</p>
+        </div>
+      </details>
+
       <div className="flex gap-3">
         <button
           onClick={() => { setMode('decode'); setOutput(''); setError(''); }}

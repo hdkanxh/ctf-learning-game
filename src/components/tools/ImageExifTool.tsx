@@ -90,6 +90,17 @@ export default function ImageExifTool() {
         💡 上传图片查看其元数据（EXIF）。很多图片的隐藏信息就藏在文件头和元数据字段中。
       </div>
 
+      <details className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <summary className="text-sm font-medium text-gray-600 cursor-pointer">📖 EXIF 是什么？</summary>
+        <div className="mt-2 text-sm text-gray-600 leading-relaxed space-y-2">
+          <p>EXIF（可交换图像文件格式）是嵌入在 JPEG/TIFF 图片中的元数据标准，由相机或手机在拍摄时自动写入。</p>
+          <p><strong>包含信息</strong>：拍摄时间、设备型号、GPS 经纬度、光圈快门 ISO、甚至照片方向</p>
+          <p><strong>安全风险</strong>：社交平台上传的原始照片可能泄露你的精确位置和行踪。</p>
+          <p>在 CTF 中，flag 常被藏在 Comment、Artist、Copyright 等不常用的 EXIF 字段中。</p>
+          <p className="mt-3 text-amber-700 bg-amber-50 rounded-lg p-3 text-xs">🎯 CTF 常见考法：题目给出一张看似普通的图片，你需要检查其 EXIF 数据找出 flag。有时 flag 会被分割存储在多个 EXIF 字段中。进阶考法：EXIF + 文件尾附加数据（文件后拼接了一个 ZIP 包）。</p>
+        </div>
+      </details>
+
       <input
         ref={fileInputRef}
         type="file"

@@ -36,6 +36,17 @@ export default function CaesarTool() {
         💡 凯撒密码将每个字母按字母表移动固定位数。例如偏移 3 时，A→D, B→E, C→F...
       </div>
 
+      <details className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <summary className="text-sm font-medium text-gray-600 cursor-pointer">📖 原理</summary>
+        <div className="mt-2 text-sm text-gray-600 leading-relaxed space-y-2">
+          <p>凯撒密码是一种<strong>替换密码</strong>——每个字母被替换为字母表中固定位置之后的另一个字母。</p>
+          <p>公式：<code className="bg-gray-200 px-1 rounded">密文 = (明文 + 偏移量) mod 26</code></p>
+          <p>例如偏移 3：A→D, B→E, C→F, ..., X→A, Y→B, Z→C</p>
+          <p>由于只有 26 种可能的偏移量，凯撒密码非常容易被暴力枚举破解。</p>
+          <p className="mt-3 text-amber-700 bg-amber-50 rounded-lg p-3 text-xs">🎯 CTF 常见考法：题目给出一段无意义的字母串，可能暗示或直接告知是凯撒密码。你需要用工具枚举 26 种偏移量，找到输出为可读英文的那个。进阶考法是将凯撒与其他编码（如 Base64）组合使用。</p>
+        </div>
+      </details>
+
       <div>
         <label className="block text-sm font-medium text-gray-600 mb-2">密文 / 明文</label>
         <textarea

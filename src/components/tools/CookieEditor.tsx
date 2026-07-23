@@ -53,6 +53,17 @@ export default function CookieEditor() {
         💡 查看和修改浏览器 Cookie。某些网站用 Cookie 存储用户身份，修改 Cookie 可能绕过权限验证。
       </div>
 
+      <details className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <summary className="text-sm font-medium text-gray-600 cursor-pointer">📖 Cookie 是什么？</summary>
+        <div className="mt-2 text-sm text-gray-600 leading-relaxed space-y-2">
+          <p>Cookie 是服务器存储在浏览器中的一小段数据（通常不超过 4KB），用于在多个请求之间维持状态。</p>
+          <p><strong>常见用途</strong>：登录会话（Session）、用户偏好、购物车、追踪标识</p>
+          <p><strong>安全属性</strong>：HttpOnly（JS 不可读）、Secure（仅 HTTPS 传输）、SameSite（防 CSRF）</p>
+          <p>在 CTF 中，如果服务器仅靠 Cookie 判断用户身份而未做签名验证，修改 Cookie 值即可伪装成他人。</p>
+          <p className="mt-3 text-amber-700 bg-amber-50 rounded-lg p-3 text-xs">🎯 CTF 常见考法：服务器用 Cookie 值来判断用户身份（如 admin=0 改为 1），但未做加密签名。你需要修改 Cookie 来提权。进阶考法：破解弱 JWT 密钥、利用反序列化漏洞、或通过 XSS 窃取他人的 Cookie。</p>
+        </div>
+      </details>
+
       {/* 当前 Cookie 列表 */}
       <div>
         <h3 className="text-sm font-medium text-gray-600 mb-2">当前 Cookie</h3>

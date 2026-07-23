@@ -63,6 +63,17 @@ export default function PcapViewer() {
         💡 网络流量分析：查看网络通信中的数据包，在 HTTP 请求和响应中寻找隐藏信息。
       </div>
 
+      <details className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <summary className="text-sm font-medium text-gray-600 cursor-pointer">📖 网络流量分析</summary>
+        <div className="mt-2 text-sm text-gray-600 leading-relaxed space-y-2">
+          <p>网络流量分析（Traffic Analysis）通过捕获和检查网络通信数据包来发现信息或异常行为。</p>
+          <p>PCAP（Packet Capture）文件是网络抓包的标准格式，Wireshark 是最常用的分析工具。</p>
+          <p><strong>关键要素</strong>：源/目标 IP 和端口、协议类型（HTTP/DNS/TCP等）、请求和响应的具体内容。</p>
+          <p>在 CTF 中，HTTP 流量的请求参数和响应体中常常直接包含 flag——翻包就是翻宝藏。</p>
+          <p className="mt-3 text-amber-700 bg-amber-50 rounded-lg p-3 text-xs">🎯 CTF 常见考法：题目提供 .pcap 或 .pcapng 流量文件，你需要从中提取传输的文件、找到 flag 的传输记录、或还原用户的网络行为。常见套路：HTTP 明文传输中包含 flag、DNS 查询中泄露了信息、USB 键盘流量中记录了按键。</p>
+        </div>
+      </details>
+
       <div className="flex items-center gap-3">
         <input ref={fileInputRef} type="file" onChange={handleFileUpload} className="hidden" />
         <button onClick={() => fileInputRef.current?.click()} className="btn-primary text-sm">

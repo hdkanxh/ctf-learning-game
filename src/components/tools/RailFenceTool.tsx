@@ -55,6 +55,17 @@ export default function RailFenceTool() {
         💡 栅栏密码将文字按 Z 字形排列在 N 行中，然后按行读取。解密时需要尝试不同的行数。
       </div>
 
+      <details className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <summary className="text-sm font-medium text-gray-600 cursor-pointer">📖 原理</summary>
+        <div className="mt-2 text-sm text-gray-600 leading-relaxed space-y-2">
+          <p>栅栏密码是一种<strong>换位密码</strong>——字母本身不变，但排列顺序被改变。</p>
+          <p>将文字按 Z 字形写入 N 行，然后按行读出，形成密文。</p>
+          <p>例如 "HELLO" 用 2 行：H L O（第 1 行）、E L（第 2 行）→ 密文 "HLOEL"</p>
+          <p>解密时需要知道行数，用相同的 Z 字形规则还原。</p>
+          <p className="mt-3 text-amber-700 bg-amber-50 rounded-lg p-3 text-xs">🎯 CTF 常见考法：题目给出一段乱序字符，提示或暗示"栅栏"或"Z 字形"。你需要尝试不同行数（通常 2-10 行）来还原原文。进阶考法会将栅栏密码与其他换位密码（如列置换）组合，增加破解难度。</p>
+        </div>
+      </details>
+
       <div>
         <label className="block text-sm font-medium text-gray-600 mb-2">密文</label>
         <textarea

@@ -83,6 +83,16 @@ export default function PipelineTool() {
         💡 当密文经过多层编码时，可以在这里拖拽组合解码步骤，形成一条流水线，一次性完成全部解码。
       </div>
 
+      <details className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <summary className="text-sm font-medium text-gray-600 cursor-pointer">📖 使用技巧</summary>
+        <div className="mt-2 text-sm text-gray-600 leading-relaxed space-y-2">
+          <p>解码流水线让你按<strong>任意顺序组合</strong>多个解码步骤，用于破解多层编码。</p>
+          <p>关键：<strong>逆向操作</strong>——如果加密是 A→B→C，解密就必须是逆向的 C→B→A。</p>
+          <p>💡 常见线索：Base64 末尾有 =，逆序后 = 到开头，ROT13 后 "flag" ↔ "synt"...</p>
+          <p className="mt-3 text-amber-700 bg-amber-50 rounded-lg p-3 text-xs">🎯 CTF 常见考法：中高难度密码题的核心——flag 经过了 2-4 层不同编码/加密的组合。你需要通过密文的特征（如 = 号、字符范围）来判断各层用了什么方法，并确定正确的解码顺序。记住：加密的最后一层必须在解码时最先处理。</p>
+        </div>
+      </details>
+
       {/* 输入 */}
       <div>
         <label className="block text-sm font-medium text-gray-600 mb-2">原始密文</label>

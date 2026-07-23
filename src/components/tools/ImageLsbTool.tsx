@@ -75,6 +75,17 @@ export default function ImageLsbTool() {
         💡 LSB（最低有效位）隐写是将信息隐藏在图片每个像素颜色值的最低比特位中。肉眼无法察觉，但程序可以提取。
       </div>
 
+      <details className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <summary className="text-sm font-medium text-gray-600 cursor-pointer">📖 LSB 隐写原理</summary>
+        <div className="mt-2 text-sm text-gray-600 leading-relaxed space-y-2">
+          <p>LSB（Least Significant Bit，最低有效位）隐写利用了人眼对细微颜色变化不敏感的特性。</p>
+          <p>每个像素由 R、G、B 三个通道组成（各 0-255），修改每个通道值的最低 1-2 个比特，肉眼完全无法察觉。</p>
+          <p>例如：将 "A"（ASCII 65 = 01000001）的 8 个比特分散写入 3 个像素的最低有效位中。</p>
+          <p>LSB 隐写是最经典的图像隐写术之一，容量大、隐蔽性强，但也容易被统计分析检测。</p>
+          <p className="mt-3 text-amber-700 bg-amber-50 rounded-lg p-3 text-xs">🎯 CTF 常见考法：图片看起来完全正常，但 LSB 提取后能发现隐藏信息。常见变体：只在固定颜色通道（如仅蓝色）中嵌入、使用像素顺序而非扫描线顺序、嵌入前先用 Base64 或凯撒编码。有时 LSB 提取出来的是一张新图片或一个压缩包。</p>
+        </div>
+      </details>
+
       <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
 
       <button onClick={() => fileInputRef.current?.click()} className="btn-primary">

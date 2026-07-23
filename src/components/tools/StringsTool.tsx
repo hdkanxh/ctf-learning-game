@@ -36,6 +36,17 @@ export default function StringsTool() {
         💡 Strings 工具从任意文件中提取所有可读字符串。在逆向工程中，硬编码的密码、URL、flag 往往就藏在字符串中。
       </div>
 
+      <details className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <summary className="text-sm font-medium text-gray-600 cursor-pointer">📖 为什么 Strings 有效？</summary>
+        <div className="mt-2 text-sm text-gray-600 leading-relaxed space-y-2">
+          <p>编译后的程序文件中包含了源码中所有的<strong>字符串常量</strong>——如提示信息、文件路径、URL、密钥等。</p>
+          <p>即使不懂汇编语言，通过提取这些可读字符串也能获得大量线索——这通常是逆向分析的第一步。</p>
+          <p>strings 命令（Linux）从二进制中提取连续 4 个以上的可打印 ASCII 字符。</p>
+          <p>在 CTF 和恶意软件分析中，strings 往往能直接暴露出硬编码的密码、API 密钥甚至 flag。</p>
+          <p className="mt-3 text-amber-700 bg-amber-50 rounded-lg p-3 text-xs">🎯 CTF 常见考法：逆向题的第一步几乎总是跑 strings。flag 可能直接以明文字符串形式存在于程序中，也可能被拆分成多个片段。进阶考法：flag 经过 XOR 加密，strings 看到的是加密后的乱码而非原文——需要结合其他线索找到解密方式。</p>
+        </div>
+      </details>
+
       <div className="flex items-center gap-3">
         <input ref={fileInputRef} type="file" onChange={handleFileUpload} className="hidden" />
         <button onClick={() => fileInputRef.current?.click()} className="btn-primary">

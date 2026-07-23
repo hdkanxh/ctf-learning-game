@@ -60,6 +60,17 @@ export default function HttpConstructor() {
         💡 构造自定义 HTTP 请求。修改请求方法、请求头或参数，模拟各种攻击场景。
       </div>
 
+      <details className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <summary className="text-sm font-medium text-gray-600 cursor-pointer">📖 HTTP 请求基础</summary>
+        <div className="mt-2 text-sm text-gray-600 leading-relaxed space-y-2">
+          <p>HTTP（超文本传输协议）是 Web 通信的基础。每次访问网页，浏览器都会向服务器发送 HTTP 请求。</p>
+          <p><strong>请求方法</strong>：GET（获取数据）、POST（提交数据）、PUT（更新）、DELETE（删除）</p>
+          <p><strong>请求头（Headers）</strong>：附加的元数据，如 User-Agent（客户端标识）、Cookie（身份凭证）、Referer（来源页面）</p>
+          <p>在 CTF 中，通过修改请求头来绕过权限验证是最常见的 Web 攻击手法之一。</p>
+          <p className="mt-3 text-amber-700 bg-amber-50 rounded-lg p-3 text-xs">🎯 CTF 常见考法：Web 题通常提供一个网站环境，你需要修改 HTTP 请求头（如伪造 User-Agent、添加 X-Forwarded-For、篡改 Referer）来绕过服务器的权限验证。还可能涉及 JWT Token 伪造、Session 劫持等进阶技巧。</p>
+        </div>
+      </details>
+
       {/* URL + Method */}
       <div className="flex gap-3">
         <select
