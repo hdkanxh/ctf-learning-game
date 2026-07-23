@@ -248,7 +248,7 @@ export default function LevelPage() {
           <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">💡 提示</h3>
           <div className="space-y-2">
             {level.hints.map((hint, index) => {
-              const isRevealed = index < unlockedHintCount || (level.id <= 3 && index === 0); // 前4关默认展示第1条
+              const isRevealed = index < unlockedHintCount;
               return (
                 <div key={index} className="border border-gray-100 rounded-lg overflow-hidden">
                   {isRevealed ? (

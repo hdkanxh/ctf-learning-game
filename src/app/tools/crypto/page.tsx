@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { usePersistedState } from '@/hooks/usePersistedState';
 import CaesarTool from '@/components/tools/CaesarTool';
 import Base64Tool from '@/components/tools/Base64Tool';
 import MorseTool from '@/components/tools/MorseTool';
@@ -23,9 +24,9 @@ const tabs: { key: ToolTab; label: string; icon: string }[] = [
 ];
 
 export default function CryptoToolsPage() {
-  const [activeTab, setActiveTab] = useState<ToolTab>('caesar');
-  const [input, setInput] = useState('');
-  const [output, setOutput] = useState('');
+  const [activeTab, setActiveTab] = usePersistedState<ToolTab>('crypto-tab', 'caesar');
+  const [input, setInput] = usePersistedState('crypto-input', '');
+  const [output, setOutput] = usePersistedState('crypto-output', '');
 
   // 简单工具的处理函数
   const handleReverse = () => setOutput(reverseString(input));
@@ -43,7 +44,7 @@ export default function CryptoToolsPage() {
         {tabs.map((tab) => (
           <button
             key={tab.key}
-            onClick={() => { setActiveTab(tab.key); setInput(''); setOutput(''); }}
+            onClick={() => setActiveTab(tab.key)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
               activeTab === tab.key
                 ? 'bg-primary-500 text-white shadow-md'

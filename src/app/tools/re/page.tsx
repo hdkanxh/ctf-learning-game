@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { usePersistedState } from '@/hooks/usePersistedState';
 import StringsTool from '@/components/tools/StringsTool';
 import HexViewer from '@/components/tools/HexViewer';
 
@@ -14,11 +15,11 @@ const tabs: { key: RETab; label: string; icon: string }[] = [
 ];
 
 export default function REToolsPage() {
-  const [activeTab, setActiveTab] = useState<RETab>('strings');
+  const [activeTab, setActiveTab] = usePersistedState<RETab>('re-tab', 'strings');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [magicInfo, setMagicInfo] = useState('');
-  const [xorInput, setXorInput] = useState('');
-  const [xorKey, setXorKey] = useState('55');
+  const [xorInput, setXorInput] = usePersistedState('xor-input', '');
+  const [xorKey, setXorKey] = usePersistedState('xor-key', '55');
   const [xorOutput, setXorOutput] = useState('');
   const [xorMode, setXorMode] = useState<'text' | 'hex'>('hex');
 

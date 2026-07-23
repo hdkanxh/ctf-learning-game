@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { usePersistedState } from '@/hooks/usePersistedState';
 import { caesarDecrypt, base64Decode, reverseString, rot13, railFenceDecrypt } from '@/lib/crypto';
 
 interface PipelineStep {
@@ -19,11 +20,11 @@ const availableSteps = [
 ];
 
 export default function PipelineTool() {
-  const [input, setInput] = useState('');
+  const [input, setInput] = usePersistedState('pipeline-input', '');
   const [steps, setSteps] = useState<PipelineStep[]>([]);
   const [output, setOutput] = useState('');
-  const [railCount, setRailCount] = useState(3);
-  const [caesarShift, setCaesarShift] = useState(3);
+  const [railCount, setRailCount] = usePersistedState<number>('pipeline-rails', 3);
+  const [caesarShift, setCaesarShift] = usePersistedState<number>('pipeline-caesar', 3);
 
   const addStep = (type: string, label: string) => {
     const newStep: PipelineStep = {

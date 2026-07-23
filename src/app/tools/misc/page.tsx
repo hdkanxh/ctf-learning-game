@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { usePersistedState } from '@/hooks/usePersistedState';
 import ImageExifTool from '@/components/tools/ImageExifTool';
 import ImageLsbTool from '@/components/tools/ImageLsbTool';
 import StringsTool from '@/components/tools/StringsTool';
@@ -18,7 +19,7 @@ const tabs: { key: MiscTab; label: string; icon: string }[] = [
 ];
 
 export default function MiscToolsPage() {
-  const [activeTab, setActiveTab] = useState<MiscTab>('image-exif');
+  const [activeTab, setActiveTab] = usePersistedState<MiscTab>('misc-tab', 'image-exif');
 
   return (
     <div className="max-w-4xl mx-auto animate-fade-in">

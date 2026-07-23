@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { usePersistedState } from '@/hooks/usePersistedState';
 
 export default function Base64Tool() {
-  const [input, setInput] = useState('');
+  const [input, setInput] = usePersistedState('base64-input', '');
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState<'decode' | 'encode'>('decode');
   const [error, setError] = useState('');

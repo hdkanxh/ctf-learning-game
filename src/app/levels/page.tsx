@@ -21,7 +21,7 @@ export default function LevelsPage() {
       <div className="text-center mb-10">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">🗺️ 关卡地图</h1>
         <p className="text-gray-500">
-          已解锁 {progress.completedLevels.length + 1} / {levels.length} 关
+          已解锁 {Math.min(progress.completedLevels.length + 1, levels.length)} / {levels.length} 关
         </p>
       </div>
 

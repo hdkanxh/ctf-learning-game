@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { usePersistedState } from '@/hooks/usePersistedState';
 
 export default function StringsTool() {
   const [strings, setStrings] = useState<string[]>([]);
-  const [minLength, setMinLength] = useState(4);
+  const [minLength, setMinLength] = usePersistedState<number>('strings-minlen', 4);
   const [fileName, setFileName] = useState('');
   const [highlight, setHighlight] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);

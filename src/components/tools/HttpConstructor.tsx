@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { usePersistedState } from '@/hooks/usePersistedState';
 
 export default function HttpConstructor() {
-  const [url, setUrl] = useState('');
-  const [method, setMethod] = useState('GET');
-  const [headers, setHeaders] = useState('{}');
-  const [body, setBody] = useState('');
+  const [url, setUrl] = usePersistedState('http-url', '');
+  const [method, setMethod] = usePersistedState('http-method', 'GET');
+  const [headers, setHeaders] = usePersistedState('http-headers', '{}');
+  const [body, setBody] = usePersistedState('http-body', '');
   const [response, setResponse] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');

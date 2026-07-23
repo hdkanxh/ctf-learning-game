@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { usePersistedState } from '@/hooks/usePersistedState';
 import CookieEditor from '@/components/tools/CookieEditor';
 import HttpConstructor from '@/components/tools/HttpConstructor';
 
@@ -108,8 +109,8 @@ function analyzeSource(html: string): SourceReport {
 }
 
 export default function WebToolsPage() {
-  const [activeTab, setActiveTab] = useState<WebTab>('source');
-  const [url, setUrl] = useState('');
+  const [activeTab, setActiveTab] = usePersistedState<WebTab>('web-tab', 'source');
+  const [url, setUrl] = usePersistedState('web-url', '');
   const [source, setSource] = useState('');
   const [report, setReport] = useState<SourceReport | null>(null);
   const [loading, setLoading] = useState(false);

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { usePersistedState } from '@/hooks/usePersistedState';
 
 function railFenceDecrypt(text: string, rails: number): string {
   const len = text.length;
@@ -35,8 +36,8 @@ function railFenceDecrypt(text: string, rails: number): string {
 }
 
 export default function RailFenceTool() {
-  const [input, setInput] = useState('');
-  const [rails, setRails] = useState(3);
+  const [input, setInput] = usePersistedState('railfence-input', '');
+  const [rails, setRails] = usePersistedState<number>('railfence-rails', 3);
 
   const results = useMemo(() => {
     if (!input) return [];

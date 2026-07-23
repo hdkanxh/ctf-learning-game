@@ -27,10 +27,13 @@ export const levels: Level[] = [
     id: 0,
     title: '启程',
     category: ['story'],
-    description: '一封来自网络安全联盟的加密邮件...',
-    content: '',
+    description: '网络安全联盟向你发来了一封任务邀请函。在正式开始追踪 Eclipse 之前，需要先找到你的调查员凭证。',
+    content: '提示系统说明：\n💡 提示 1：提供解题思路和方向，不会直接给答案\n💡 提示 2：给出更具体的解法步骤，实在卡住了再点开\n\n每关都有两个提示，默认隐藏。尝试自己思考，享受解谜的乐趣！',
     flagHash: 'db64c56f55833dc7e724a46966d93a6116e21e04c56ddeacf54b0e9c8830c1be',
-    hints: ['仔细观察页面上的每一段文字...'],
+    hints: [
+      '仔细阅读系统消息区域，寻找身份验证令牌',
+      '在页面下方灰色背景的模拟终端日志中，有一条包含 flag{...} 格式的令牌信息',
+    ],
     tools: [],
     challengeType: 'story',
   },
@@ -44,8 +47,8 @@ export const levels: Level[] = [
   content: 'iodj{fdhvdu_lv_ixq}',
   flagHash: '85920f3446e17f7ce8f733d7067f8b6e5efdb782a99d440b5392d2430d2ca331',
   hints: [
-    '试试凯撒密码——每个字母在字母表中往后移 3 位？',
-    '偏移量就是 3，用凯撒解密工具，shift 设为 3',
+    '每个字母好像被移动了固定的位置，试试凯撒密码工具？',
+    '使用凯撒解密工具，偏移量设为 3 即可还原原文',
   ],
   tools: ['caesar'],
   challengeType: 'caesar',
@@ -62,7 +65,10 @@ export const levels: Level[] = [
     'Eclipse 的第二条消息显然加密得更随意了。你需要自己尝试所有可能的偏移量。',
   content: 'zfua{sio_uly_fyulhcha_zumn}',
   flagHash: 'f4bd210bc78189817dab898dffc85626ebc49f80458835153e0dde2da939cf98',
-  hints: [],
+  hints: [
+    '和上一关是同一种密码，但偏移量变了。试试逐个排查？',
+    '拖动凯撒工具滑块从 0 到 25，找到输出为合理英文的那个偏移量',
+  ],
   tools: ['caesar'],
   challengeType: 'caesar',
   },
@@ -75,8 +81,8 @@ export const levels: Level[] = [
   content: 'ZmxhZ3tiYXNlNjRfaXNfY29tbW9ufQ==',
   flagHash: 'c123208666ad349e0b17b941643e2e87ae40d1210ff4b5029f2b0cd36045c077',
   hints: [
-    '末尾的 == 是 Base64 编码的标志性特征！用 Base64 解码工具试试。',
-    '直接把上面那串字符粘贴到 Base64 解码器里，选"解码"模式。',
+    '末尾的 == 是某种编码的特征，回忆一下之前看到过的介绍？',
+    '直接用 Base64 解码工具，把密文粘贴进去选解码模式',
   ],
   tools: ['base64'],
   challengeType: 'base64',
@@ -95,8 +101,8 @@ export const levels: Level[] = [
   // 上面是 "flag{m0rs3_c0d3_c00l}" 的摩尔斯电码
   flagHash: '2a5620afb471bbeb9a5ee560fb2e313605796cbb1ff7d95dcc73497156fea998',
   hints: [
-    '短信号是 .（点/dit），长信号是 -（划/dah）。这就是摩尔斯电码。',
-    '用摩尔斯电码解码工具，把密文粘贴进去，选"解码"模式。',
+    '点和划组成的信号——想想电报时代是怎么通信的？',
+    '使用摩尔斯电码解码工具，将密文粘贴进去，选择解码模式',
   ],
   tools: ['morse'],
   challengeType: 'morse',
@@ -115,7 +121,10 @@ export const levels: Level[] = [
   // ZmxhZ3tkb3VibGVfdHJvdWJsZX0= → Cpodjh{grxeoh_wurxeoh}
   content: 'KxisK3evm3GtmRGqoSUgoHUdKI0=',
   flagHash: '60dbc6eddb1b0b1cbdab301a1745a25260c6e301020ae7417c8b02ead21709c7',
-  hints: [],
+  hints: [
+    '末尾有 = 暗示了 Base64，但直接解码是乱码。想想还学了什么密码？',
+    '先用凯撒解密（偏移 11），再 Base64 解码。可以在解码流水线中按此顺序操作',
+  ],
   tools: ['caesar', 'base64', 'pipeline'],
   challengeType: 'combo',
   },
@@ -131,7 +140,8 @@ export const levels: Level[] = [
   content: 'fa{ec_ses}lgfnei_ay',
   flagHash: 'f726f5eea9e724ff77774d6a4bad371e4feda599392b937782d25cfcc6dcc9bf',
   hints: [
-    '栅栏密码——把字符串按固定行数排列成 Z 字形，然后按行读取。试试 3 行？',
+    '字母没有被替换成别的，只是排列顺序变了。"栅栏"是什么意思？',
+    '使用栅栏密码工具，把密文粘贴进去，行数设为 2 即可还原',
   ],
   tools: ['railfence'],
   challengeType: 'railfence',
@@ -160,7 +170,8 @@ export const levels: Level[] = [
   content: 'jnlo{kakippzt_aw_gnlahag}',
   flagHash: '2d666e258e920a74c33d8ca038e62a059e418cb5b45beb06762874743a2b891b',
   hints: [
-    '密钥已经告诉你了：ECLIPSE。用维吉尼亚密码解密工具。',
+    '题目里已经明确说了密码类型和密钥——就是 Eclipse 自己的代号',
+    '使用维吉尼亚密码工具，密钥输入 ECLIPSE，点解密',
   ],
   tools: ['vigenere'],
   challengeType: 'vigenere',
@@ -177,7 +188,10 @@ export const levels: Level[] = [
     'Eclipse 把 flag 经过了三次处理。他声称用到了之前出现过的所有技巧。\n你需要自己搞清楚编码的种类和顺序，逆向还原出原始信息。',
   content: '==QfppWYq5WboZ2X3pWe4ZmcfRXe1R2dotHbmF3a',
   flagHash: '9b750dbcfc890b544ecb031e7f560b31a5abe68dbea7f119543d7a5e9634d7db',
-  hints: [],
+  hints: [
+    '密文开头有 ==，但它不在末尾——这暗示了什么操作？还涉及另外两种学过的技巧',
+    '解码顺序：逆序（把==移回末尾）→ Base64解码 → 凯撒解密(shift=5)。在解码流水线中按此操作',
+  ],
   tools: ['caesar', 'base64', 'reverse', 'pipeline'],
   challengeType: 'combo',
   },
@@ -185,15 +199,13 @@ export const levels: Level[] = [
   id: 9,
   title: '图片的悄悄话',
   category: ['misc'],
-  description: 'Eclipse 在社交平台上发了一张旅行照片。联盟分析员觉得不对劲——\n' +
-    '这张照片的文件大小比正常的要大一些。\n\n' +
-    '「秘密不一定藏在画面里。有时候，文件的"身份信息"里藏了东西。」',
+  description: 'Eclipse 在社交平台上发了一张旅行照片。联盟分析员觉得不对劲——\n这张照片的文件大小比正常的要大一些。\n\n也许，秘密不在照片画面里？',
   content: '下载下面的图片，用图片分析工具查看它的元数据（EXIF）。\n\n' +
     '提示：关注 Comment、Artist、Copyright 等不常见的字段。',
   flagHash: '56e2d88d66c7a174d0080f194ed4f6de33c068860c8497126ce685c065d5724e',
   hints: [
-    '图片不只是像素！用"图片 EXIF"工具上传这张图片，查看元数据字段。',
-    '检查 Comment 字段，flag 就在那里。',
+    '图片文件除了像素画面，还包含拍摄设备、时间等隐藏元数据信息',
+    '使用图片 EXIF 工具上传 challenge-09.jpg，查看 UserComment 等不常见字段',
   ],
   tools: ['image-exif'],
   challengeType: 'image-exif',
@@ -207,14 +219,13 @@ export const levels: Level[] = [
   id: 10,
   title: '像素里的秘密',
   category: ['misc'],
-  description: '「EXIF 只是开胃菜。我更擅长把秘密藏在像素里。」\n\n' +
-    'Eclipse 这次发来了一张看起来完全正常的 PNG 图片。\n但如果你观察每个像素颜色值的最低位……会发现另一个世界。',
+  description: '「EXIF 只是开胃菜。真正的秘密，藏在你的眼皮底下。」\n\nEclipse 发来了一张看起来完全正常的 PNG 图片。\n但如果你仔细观察每个像素……',
   content: '下载下面的 PNG 图片，用 LSB 提取工具查看隐藏信息。\n\n' +
     '提示：每个像素的 RGB 颜色值的最低位（LSB）被修改了。',
   flagHash: '7369b9296d71bde2ab0a15ea49e081c678f3726254cd5abc35086b8797d4a7fa',
   hints: [
-    '用"LSB 提取"工具上传这张 PNG 图片，提取每个像素的最低位。',
-    'flag 直接以 ASCII 文本形式藏在 LSB 中。',
+    '每个像素的红绿蓝颜色值，最低位可以藏信息而不影响外观',
+    '使用 LSB 提取工具上传 challenge-10.png，工具会自动提取隐藏的文本',
   ],
   tools: ['image-lsb'],
   challengeType: 'image-lsb',
@@ -224,14 +235,13 @@ export const levels: Level[] = [
   id: 11,
   title: '被截获的电波',
   category: ['misc'],
-  description: '「联盟截获了一段 Eclipse 的网络通信记录。他似乎在从某个服务器下载文件。」\n\n' +
-    '分析人员提取了 HTTP 请求和响应数据。翻翻看——也许某个响应包里藏了不该出现的东西？',
+  description: '「联盟截获了一段 Eclipse 的网络通信记录。」\n\n分析人员提取了 HTTP 请求和响应数据，但还没仔细翻看过。',
   content: '下载下面的流量记录文件，用流量分析器打开它。\n' +
     '浏览每个 HTTP 请求的响应内容，flag 就在其中一个里面。',
   flagHash: 'd3bad68cb3097e5700b93e9774147bf5cd45eeb1c87ec489e4a2a9423714a4d6',
   hints: [
-    '用"流量分析"工具上传这个文件。浏览每个 HTTP 响应，flag 在响应体里。',
-    '找找看哪个请求的响应内容看起来像是"不该出现在那里的"？',
+    '网络通信中有多条 HTTP 请求，每条都有请求内容和服务器返回的响应数据',
+    '用流量分析器打开 challenge-11.json，重点看第 4 号数据包（POST /api/auth）的响应体',
   ],
   tools: ['pcap-viewer'],
   challengeType: 'pcap',
@@ -249,10 +259,7 @@ export const levels: Level[] = [
   content: '打开 Eclipse 的博客，查看网页的 HTML 源代码。\n\n' +
     '在 VS Code 中也可以直接打开 src/app/challenges/eclipse-blog/page.tsx 查看源码——模仿攻击者的视角。',
   flagHash: '6c5d0ebbc86002b7328e60198a46b0bb1a66ef6cbb0afdcdcd4bbaaa9a1f8dd2',
-  hints: [
-    '右键页面 → 查看网页源代码？或者用"源码查看"工具获取页面 HTML。',
-    '搜索 "flag" 或 "注释" —— HTML 注释用 <!-- --> 包裹。',
-  ],
+  hints: ['网页上看到的内容不是全部——浏览器还加载了看不见的部分', '使用源码查看工具获取页面 HTML，或者右键查看网页源代码，搜索注释标记'],
   tools: ['source-viewer'],
   challengeType: 'web-source',
   knowledge: {
@@ -270,10 +277,7 @@ export const levels: Level[] = [
     '但你发现 Cookie 是可以被用户随意修改的……',
   content: '访问会员专区页面，使用 Cookie 编辑工具将 role 从 guest 改为 admin。',
   flagHash: '82cec5fea11c2d511951b75c8cb0a3e12a656f9a039544f13a35648e147a8f88',
-  hints: [
-    '用"Cookie 编辑器"工具查看当前 Cookie。把 role=guest 改成 role=admin。',
-    '修改 Cookie 后刷新页面，会员专区就会显示隐藏内容。',
-  ],
+  hints: ['网站用什么来记住你的登录状态？浏览器里存着这些小文件', '用 Cookie 编辑器把 role 的值从 guest 改成 admin，然后刷新会员专区页面'],
   tools: ['cookie-editor'],
   challengeType: 'web-cookie',
   knowledge: {
@@ -293,7 +297,7 @@ export const levels: Level[] = [
     '尝试修改 file 参数的值来读取其他文件。\n' +
     '也许服务器上有个 secret 目录？',
   flagHash: '39cdccbd4c2acbefe8e1e269237c61a8f945e9804d611427a960a985646f79d2',
-  hints: [],
+  hints: ['当前目录只是文件树的一部分，目录结构可以往上走', '点击 .. 返回上级目录，寻找一个叫 secret 的文件夹'],
   tools: ['http-constructor'],
   challengeType: 'web-pathtraversal',
   knowledge: {
@@ -306,13 +310,11 @@ export const levels: Level[] = [
   id: 15,
   title: '伪装者',
   category: ['web', 'crypto'],
-  description: '「在 Eclipse 的服务器深处，发现了一个隐藏的 API 接口。\n' +
-    '但它只允许 Eclipse 的内部工具访问……或许你可以伪装成它？」\n\n' +
-    '使用 HTTP 请求构造器添加 X-Client-ID 头。',
+  description: '「在 Eclipse 的服务器深处，发现了一个隐藏的 API 接口。」\n\n它似乎只允许 Eclipse 的内部工具访问……',
   content: '直接访问 API 会看到网关拦截页面，里面有线索。\n\n' +
     '找到合法身份后，用 HTTP 请求构造器添加 X-Client-ID 请求头，\n获取加密配置后解码得到 flag。',
   flagHash: '678bdebd65549b4a527f5f9ea8894afce2c3eb215f3cd1f45708ff7e3a2ee22b',
-  hints: [],
+  hints: ['直接访问这个 API 会看到一个网关拦截页面，上面列出了允许访问的工具名单', '在 HTTP 请求构造器中添加 X-Client-ID: EclipseBot 头，获取加密配置后做两次 Base64 解码'],
   tools: ['http-constructor', 'base64'],
   challengeType: 'web-crypto',
   webChallengeUrl: '/challenges/eclipse-blog/api/secret',
@@ -330,8 +332,8 @@ export const levels: Level[] = [
     '提示：不需要运行程序。flag 就在字符串列表中。',
   flagHash: '970fe86712c1bb73390c02119a65452f039bf68d16f0543a4ebd666cd4fa5024',
   hints: [
-    '不需要运行程序！用"Strings 提取"工具上传文件，查看所有可读字符串。',
-    '直接找 flag{...} 格式的字符串，就在输出结果中。',
+    '不需要运行程序！程序文件里直接包含了可读的文本信息',
+    '用 Strings 工具上传程序文件，在输出中直接搜索 flag{...} 格式的字符串',
   ],
   tools: ['strings', 'hex-viewer'],
   challengeType: 're-strings',
@@ -349,8 +351,8 @@ export const levels: Level[] = [
     '方法2：用 Strings 工具找线索，用 XOR 分析器反推。',
   flagHash: '058716e43294521a5b0c234317f9a2e196d8cd0001eae4f3a185658a9676e958',
   hints: [
-    '查看源码中的 encrypted[] 数组或 strings 输出。',
-    '每个字节 XOR 0x55 就能得到正确的密码。用 XOR 计算器。',
+    'Strings 输出中有一串十六进制数字和 XOR 0x55 的线索——两者有关联',
+    '把那些十六进制字节复制到 XOR 计算器（选十六进制模式），密钥填 55',
   ],
   tools: ['strings', 'hex-viewer', 'xor-calc'],
   challengeType: 're-xor',
@@ -364,13 +366,14 @@ export const levels: Level[] = [
   id: 18,
   title: '层层解码',
   category: ['re', 'crypto'],
-  description: '「最后一个程序，Eclipse 花了点心思。不过套路差不多。」\n\n' +
-    '这个程序存储的不是明文 flag，而是经过多层编码的密文。\n' +
-    '先用 Strings 工具看看程序里藏了什么，然后想想之前学过的技巧。',
+  description: '「最后一个程序，Eclipse 花了点心思。不过套路差不多。」\n\n这个程序存储的不是明文 flag，需要你逆向还原。',
   content: '下载 challenge-18 程序。\n\n' +
     '用 Strings 工具提取关键信息，在解码流水线中还原 flag。',
   flagHash: '8e64a38d454269a92cc0183558c5b905cad7581e1fc33a7d5c09113ce238eef6',
-  hints: [],
+  hints: [
+    '先用 Strings 提取密文——注意末尾 == 暗示了 Base64。再看看程序里的函数名',
+    '解码顺序：逆序 → Base64解码 → ROT13。Strings 中有 ROT13 示例 flag↔synt 作为提示',
+  ],
   tools: ['strings', 'base64', 'rot13', 'reverse', 'pipeline'],
   challengeType: 're-crypto',
   downloadFiles: ['challenge-18.c'],
@@ -381,16 +384,16 @@ export const levels: Level[] = [
   id: 19,
   title: '三重门',
   category: ['misc', 'crypto', 'web'],
-  description: '「你越来越近了。Eclipse 开启了第一道防线——三重门。」\n\n' +
-    '第一重：一张图片，秘密藏在像素里。\n' +
-    '第二重：一段密文，需要古典密码学知识。\n' +
-    '第三重：一个隐藏网页，需要正确的访问方式。',
+  description: '「你越来越近了。Eclipse 开启了第一道防线——三重门。」\n\n一张图片、一段密文、一个隐藏页面。三道关卡环环相扣。',
   content: '步骤提示（不强制，靠自己摸索）：\n' +
     '① 下载图片 → LSB 提取隐藏文本\n' +
     '② 隐藏文本是凯撒密文 → 解密得到 URL 路径\n' +
     '③ 访问该路径 → 用 HTTP 请求构造器修改 Referer 头',
   flagHash: '49fabd9fadc38ac1ec3bf48bf79e982601544d4773aaa7fb8486fe915f4330c9',
-  hints: [],
+  hints: [
+    '先 LSB 提取图片中的隐藏文本，文本会告诉你下一步的方向',
+    'LSB 提取后获得凯撒密文和 header 线索。凯撒解密(偏移7)得到路径，HTTP 构造器加 X-From 头访问',
+  ],
   tools: ['image-lsb', 'caesar', 'http-constructor'],
   challengeType: 'combo-final1',
   downloadFiles: ['challenge-19.png'],
@@ -399,10 +402,13 @@ export const levels: Level[] = [
     id: 20,
     title: '镜像迷宫',
     category: ['web', 're', 'crypto'],
-    description: '「第二道防线。Eclipse 把秘密藏得更深了。」',
+    description: '「第二道防线。Eclipse 把秘密藏得更深了。」\n\n实验室里有一段加密载荷和一个加密程序。从哪里入手？',
     content: '在 robots.txt 中或许能找到隐藏的入口。',
     flagHash: 'b7a193b75e355f5816ff41929005e9f02134fa49a3ff03c19e75eacce9f965b1',
-    hints: [],
+    hints: [
+    '先找实验室入口——网站通常会有一个文件告诉爬虫哪些路径不能访问',
+    'robots.txt → 实验室 → Strings 找密钥 NIGHTSHADE → 密文先 Base64 再 Vigenère 解密',
+    ],
     tools: ['source-viewer', 'strings', 'base64', 'vigenere', 'pipeline'],
     challengeType: 'combo-final2',
     webChallengeUrl: '/challenges/eclipse-lab',
@@ -411,10 +417,13 @@ export const levels: Level[] = [
     id: 21,
     title: '终焉',
     category: ['web', 'pwn', 'crypto', 're', 'misc'],
-    description: '「最后一道防线。攻破它，找到 Eclipse 的真实位置。」',
+    description: '「最后一道防线。Eclipse 用尽了他所有的技能。」\n\n进入远程终端，找到 Eclipse 藏在系统深处的真实坐标。',
     content: '进入 Eclipse 的远程终端。你需要的所有线索都在那里。',
     flagHash: '6a102e55154d1de588858f4907ec64676e998c7170448f3c3dbc30b93fd3087e',
-    hints: [],
+    hints: [
+    '一切从查看页面源码开始——终端里的每一步都会给出下一步的线索',
+    '源码找登录凭证 → 登录 → 栅栏密码(4行)解密指令 → 终端输入 → Strings找激活码 → 终端执行 → LSB提取坐标',
+    ],
     tools: ['source-viewer', 'railfence', 'strings', 'image-lsb'],
     challengeType: 'combo-final3',
     webChallengeUrl: '/challenges/eclipse-terminal',

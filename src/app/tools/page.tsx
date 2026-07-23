@@ -15,7 +15,7 @@ const toolCategories = [
   },
   {
     title: '🌐 Web 调试器',
-    description: '页面源码查看 · Cookie 编辑器 · HTTP 请求构造器 · robots.txt 探测器',
+    description: '页面源码查看 · Cookie 编辑器 · HTTP 请求构造器',
     href: '/tools/web',
     color: 'border-l-blue-400',
   },

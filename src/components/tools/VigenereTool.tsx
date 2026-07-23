@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { usePersistedState } from '@/hooks/usePersistedState';
 
 function vigenereDecrypt(text: string, key: string): string {
   const cleanKey = key.toLowerCase().replace(/[^a-z]/g, '');
@@ -25,8 +26,8 @@ function vigenereDecrypt(text: string, key: string): string {
 }
 
 export default function VigenereTool() {
-  const [input, setInput] = useState('');
-  const [key, setKey] = useState('');
+  const [input, setInput] = usePersistedState('vigenere-input', '');
+  const [key, setKey] = usePersistedState('vigenere-key', '');
   const [output, setOutput] = useState('');
 
   const handleDecrypt = () => {

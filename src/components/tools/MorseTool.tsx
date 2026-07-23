@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { usePersistedState } from '@/hooks/usePersistedState';
 import { MORSE_CODE, MORSE_REVERSE } from '@/lib/crypto';
 
 export default function MorseTool() {
-  const [input, setInput] = useState('');
+  const [input, setInput] = usePersistedState('morse-input', '');
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState<'decode' | 'encode'>('decode');
 

@@ -93,19 +93,20 @@ export default function HomePage() {
         {/* 学习方向预览 */}
         <div className="mt-8 grid grid-cols-2 md:grid-cols-5 gap-3">
           {[
-            { icon: '🔐', label: '密码学', color: 'bg-amber-50 text-amber-700 border-amber-200' },
-            { icon: '🧩', label: '杂项', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-            { icon: '🌐', label: 'Web安全', color: 'bg-blue-50 text-blue-700 border-blue-200' },
-            { icon: '🔧', label: '逆向工程', color: 'bg-purple-50 text-purple-700 border-purple-200' },
-            { icon: '💻', label: '二进制', color: 'bg-red-50 text-red-700 border-red-200' },
+            { icon: '🔐', label: '密码学', slug: 'crypto', color: 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100' },
+            { icon: '🧩', label: '杂项', slug: 'misc', color: 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100' },
+            { icon: '🌐', label: 'Web安全', slug: 'web', color: 'bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100' },
+            { icon: '🔧', label: '逆向工程', slug: 're', color: 'bg-purple-50 text-purple-700 border-purple-200 hover:bg-purple-100' },
+            { icon: '💻', label: '二进制', slug: 'pwn', color: 'bg-red-50 text-red-700 border-red-200 hover:bg-red-100' },
           ].map((item) => (
-            <div
+            <Link
               key={item.label}
-              className={`${item.color} border rounded-xl p-3 text-center text-sm font-medium`}
+              href={`/categories/${item.slug}`}
+              className={`${item.color} border rounded-xl p-3 text-center text-sm font-medium cursor-pointer transition-colors`}
             >
               <div className="text-2xl mb-1">{item.icon}</div>
               {item.label}
-            </div>
+            </Link>
           ))}
         </div>
       </div>

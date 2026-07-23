@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { usePersistedState } from '@/hooks/usePersistedState';
 
 export default function CaesarTool() {
-  const [input, setInput] = useState('');
-  const [shift, setShift] = useState(3);
+  const [input, setInput] = usePersistedState('caesar-input', '');
+  const [shift, setShift] = usePersistedState<number>('caesar-shift', 3);
 
   const results = useMemo(() => {
     if (!input) return [];

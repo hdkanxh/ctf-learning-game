@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { usePersistedState } from '@/hooks/usePersistedState';
 
 // 模拟 HTTP 流量数据（实际关卡会提供真实 JSON 文件）
 interface HttpPacket {
@@ -20,7 +21,7 @@ export default function PcapViewer() {
   const [selectedPacket, setSelectedPacket] = useState<number | null>(null);
   const [fileName, setFileName] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [filterText, setFilterText] = useState('');
+  const [filterText, setFilterText] = usePersistedState('pcap-filter', '');
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
