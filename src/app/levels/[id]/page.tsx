@@ -61,7 +61,7 @@ export default function LevelPage() {
         completeLevel(levelId);
         // 3 秒后自动跳转下一关
         setTimeout(() => {
-          router.push(`/levels/${levelId + 1}`);
+          router.push(levelId === 21 ? '/ending' : `/levels/${levelId + 1}`);
         }, 2000);
       } else {
         setFeedback({ type: 'error', message: data.message });
@@ -204,6 +204,18 @@ export default function LevelPage() {
         </div>
       )}
 
+      {/* 科普知识 */}
+      {level.knowledge && (
+        <details className="card p-6 mb-6 bg-blue-50/50 border-blue-200">
+          <summary className="text-sm font-semibold text-blue-700 cursor-pointer hover:text-blue-800">
+            📖 {level.knowledge.title}（点击展开）
+          </summary>
+          <p className="mt-3 text-sm text-blue-800 leading-relaxed">
+            {level.knowledge.content}
+          </p>
+        </details>
+      )}
+
       {/* 推荐工具 */}
       {level.tools.length > 0 && (
         <div className="card p-6 mb-6">
@@ -291,7 +303,7 @@ export default function LevelPage() {
         </button>
         {completed && (
           <button
-            onClick={() => router.push(`/levels/${levelId + 1}`)}
+            onClick={() => router.push(levelId === 21 ? '/ending' : `/levels/${levelId + 1}`)}
             className="btn-primary text-sm"
           >
             下一关 →

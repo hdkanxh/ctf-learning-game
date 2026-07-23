@@ -12,6 +12,10 @@ export interface Level {
   challengeType: string;       // 题目子类型：caesar / base64 / morse / image / webshell 等
   downloadFiles?: string[];    // 可下载的附件文件名
   webChallengeUrl?: string;    // Web 题的内嵌页面路径
+  knowledge?: {               // 科普知识卡片
+    title: string;
+    content: string;
+  };
 }
 
 // ⚠️ 此处 flagHash 需要运行 hashFlag 工具生成
@@ -45,6 +49,10 @@ export const levels: Level[] = [
   ],
   tools: ['caesar'],
   challengeType: 'caesar',
+  knowledge: {
+    title: '📜 凯撒密码的历史',
+    content: '凯撒密码因古罗马军事统帅尤利乌斯·凯撒（Julius Caesar）而得名。他在高卢战争期间使用这种替换密码与将领通信——将每个字母后移三位，即使信使被截获，敌人也无法读懂。这是人类有记载的最早的加密技术之一，距今已有 2000 多年历史。现代密码学的核心思想——用密钥（偏移量）控制加密——正是从凯撒密码开始的。',
+  },
   },
   {
   id: 2,
@@ -72,6 +80,10 @@ export const levels: Level[] = [
   ],
   tools: ['base64'],
   challengeType: 'base64',
+  knowledge: {
+    title: '📧 Base64 的用途',
+    content: 'Base64 不是加密，而是一种编码方式。它的设计目的是让二进制数据（如图片、附件）能够通过只支持文本的通道传输——最典型的场景就是电子邮件。早期的 SMTP 协议只能传输 ASCII 文本，Base64 把任意字节映射到 64 个可打印字符（A-Z, a-z, 0-9, +, /），= 号用来补位。今天你在 JSON、URL、甚至网页图片的 data URI 中都能看到它的身影。',
+  },
   },
   {
   id: 4,
@@ -88,6 +100,10 @@ export const levels: Level[] = [
   ],
   tools: ['morse'],
   challengeType: 'morse',
+  knowledge: {
+    title: '📻 摩尔斯电码与无线通信',
+    content: '摩尔斯电码由萨缪尔·摩尔斯（Samuel Morse）于 1836 年发明，是最早的电子通信编码方式。它用点（.）和划（-）的组合表示字母和数字，通过电报线路或无线电波传输。泰坦尼克号沉没时（1912 年），船上的电报员就是通过摩尔斯电码发出求救信号 SOS（··· --- ···）才使附近船只赶来救援。直到今天，航空导航、业余无线电爱好者仍在广泛使用摩尔斯电码。',
+  },
   },
   {
   id: 5,
@@ -148,6 +164,10 @@ export const levels: Level[] = [
   ],
   tools: ['vigenere'],
   challengeType: 'vigenere',
+  knowledge: {
+    title: '🔐 维吉尼亚密码——300 年未被破解',
+    content: '维吉尼亚密码由法国外交官布莱斯·德·维吉尼亚（Blaise de Vigenère）于 1586 年提出。它使用一个关键词对不同位置的字母应用不同的凯撒偏移，从而打破了单表替换密码容易被频率分析破解的弱点。此后的 300 年里，维吉尼亚密码一直被认为是"无法破解的密码"（Le Chiffre Indéchiffrable），直到 1863 年才被普鲁士军官卡西斯基（Kasiski）用数学方法攻破。但它的核心思想——多表替换——至今仍是现代加密算法（如 AES）的基础之一。',
+  },
   },
   {
   id: 8,
@@ -177,6 +197,10 @@ export const levels: Level[] = [
   ],
   tools: ['image-exif'],
   challengeType: 'image-exif',
+  knowledge: {
+    title: '📸 照片泄露了多少秘密？',
+    content: '你拍的每一张照片，手机都会自动嵌入 EXIF（可交换图像文件格式）元数据——拍摄时间、设备型号、GPS 坐标、光圈快门参数……2012 年，FBI 就是通过一张照片的 EXIF GPS 数据定位并逮捕了一名黑客。2023 年，一名美国飞行员在社交平台发布战机座舱自拍，俄罗斯情报部门通过 EXIF 数据推断出了基地位置。在 CTF 比赛中，EXIF 信息也是最常见的隐写考点之一。',
+  },
   downloadFiles: ['challenge-09.jpg'],
   },
   {
@@ -231,6 +255,10 @@ export const levels: Level[] = [
   ],
   tools: ['source-viewer'],
   challengeType: 'web-source',
+  knowledge: {
+    title: '🕵️ HTML 注释泄露——真实案例',
+    content: '把敏感信息写在前端代码注释里，听起来很蠢——但它真的发生过。2018 年，安全研究员在耐克官网的 HTML 注释中发现了内部 API 密钥。2021 年，一名开发者在某政府网站的源码注释中留下了数据库密码。前端代码对用户是完全透明的——浏览器的"查看源代码"功能不会过滤任何内容。记住：永远不要在前端代码中存放秘密。HTTPS 加密的是传输过程，加密不了用户的眼睛。',
+  },
   webChallengeUrl: '/challenges/eclipse-blog',
   },
   {
@@ -248,6 +276,10 @@ export const levels: Level[] = [
   ],
   tools: ['cookie-editor'],
   challengeType: 'web-cookie',
+  knowledge: {
+    title: '🍪 Cookie 劫持——Firesheep 事件',
+    content: '2010 年，一名开发者发布了一款名为 Firesheep 的 Firefox 浏览器插件。它让任何人都能在公共 Wi-Fi（咖啡厅、机场）中一键劫持他人的 Facebook、Twitter 登录会话——原理就是截获未加密的 Cookie。这个事件震惊了整个互联网行业，直接推动了各大网站全面启用 HTTPS 加密。今天，Cookie 安全属性（HttpOnly、Secure、SameSite）已成为 Web 安全的基础知识，但仍有大量网站因为 Cookie 配置不当被攻破。',
+  },
   webChallengeUrl: '/challenges/eclipse-blog/admin',
   },
   {
@@ -264,6 +296,10 @@ export const levels: Level[] = [
   hints: [],
   tools: ['http-constructor'],
   challengeType: 'web-pathtraversal',
+  knowledge: {
+    title: '📂 路径遍历——Equifax 数据泄露',
+    content: '路径遍历（又称目录穿越）是 OWASP Top 10 中最古老的 Web 漏洞之一。攻击者通过在文件路径中插入 ../ 来跳出预期目录，读取任意文件。2017 年，美国征信巨头 Equifax 因一个路径遍历漏洞被攻击，导致 1.47 亿美国人的社保号、驾照号等敏感数据泄露。CEO 因此引咎辞职，公司被罚款 7 亿美元。这个漏洞的原理如此简单，但危害可以如此巨大——这就是 Web 安全需要从基础学起的原因。',
+  },
   webChallengeUrl: '/challenges/eclipse-blog/files',
   },
   {
@@ -318,6 +354,10 @@ export const levels: Level[] = [
   ],
   tools: ['strings', 'hex-viewer', 'xor-calc'],
   challengeType: 're-xor',
+  knowledge: {
+    title: '🧮 XOR 加密——简单却无处不在',
+    content: 'XOR（异或）运算有一个神奇的特性：A XOR B XOR B = A。即用同一个密钥异或两次，数据就还原了。因为这个特性，XOR 成为了计算机领域最基础的加密运算——从早期的游戏存档加密、恶意软件的混淆器，到现代密码学中的流密码（如 RC4）和分组密码（如 AES 的 MixColumns 步骤），XOR 无处不在。它简单到只需一行代码，但又强大到足以构建整个加密体系。比尔·盖茨的第一款产品——为 Altair 8800 写的 BASIC 解释器——就使用了 XOR 来保护代码。',
+  },
   downloadFiles: ['challenge-17.c'],
   },
   {
@@ -334,32 +374,37 @@ export const levels: Level[] = [
   tools: ['strings', 'base64', 'rot13', 'reverse', 'pipeline'],
   challengeType: 're-crypto',
   downloadFiles: ['challenge-18.c'],
-},
+  },
 
   // ===== Phase 5: 终局之战 =====
   {
-    id: 19,
-    title: '三重门',
-    category: ['misc', 'crypto', 'web'],
-    description: '「你越来越近了。Eclipse 开启了第一道防线——三重门。」',
-    content: '图片隐写 → 凯撒解密 → Web 请求',
-    flagHash: 'PLACEHOLDER',
-    hints: [],
-    tools: ['image-lsb', 'caesar', 'http-constructor'],
-    challengeType: 'combo-final1',
-    downloadFiles: ['challenge-19.png'],
+  id: 19,
+  title: '三重门',
+  category: ['misc', 'crypto', 'web'],
+  description: '「你越来越近了。Eclipse 开启了第一道防线——三重门。」\n\n' +
+    '第一重：一张图片，秘密藏在像素里。\n' +
+    '第二重：一段密文，需要古典密码学知识。\n' +
+    '第三重：一个隐藏网页，需要正确的访问方式。',
+  content: '步骤提示（不强制，靠自己摸索）：\n' +
+    '① 下载图片 → LSB 提取隐藏文本\n' +
+    '② 隐藏文本是凯撒密文 → 解密得到 URL 路径\n' +
+    '③ 访问该路径 → 用 HTTP 请求构造器修改 Referer 头',
+  flagHash: '49fabd9fadc38ac1ec3bf48bf79e982601544d4773aaa7fb8486fe915f4330c9',
+  hints: [],
+  tools: ['image-lsb', 'caesar', 'http-constructor'],
+  challengeType: 'combo-final1',
+  downloadFiles: ['challenge-19.png'],
   },
   {
     id: 20,
     title: '镜像迷宫',
-    category: ['web', 're', 'crypto', 'misc'],
+    category: ['web', 're', 'crypto'],
     description: '「第二道防线。Eclipse 把秘密藏得更深了。」',
-    content: 'robots.txt → RE → Base64+Vigenère → 音频频谱图',
-    flagHash: 'PLACEHOLDER',
+    content: '在 robots.txt 中或许能找到隐藏的入口。',
+    flagHash: 'b7a193b75e355f5816ff41929005e9f02134fa49a3ff03c19e75eacce9f965b1',
     hints: [],
-    tools: ['source-viewer', 'strings', 'base64', 'vigenere', 'image-lsb'],
+    tools: ['source-viewer', 'strings', 'base64', 'vigenere', 'pipeline'],
     challengeType: 'combo-final2',
-    downloadFiles: ['challenge-20.exe', 'challenge-20.wav'],
     webChallengeUrl: '/challenges/eclipse-lab',
   },
   {
@@ -367,12 +412,11 @@ export const levels: Level[] = [
     title: '终焉',
     category: ['web', 'pwn', 'crypto', 're', 'misc'],
     description: '「最后一道防线。攻破它，找到 Eclipse 的真实位置。」',
-    content: 'HTML注释泄露 → 栅栏密码 → WebSocket终端 → RE → LSB',
-    flagHash: 'PLACEHOLDER',
+    content: '进入 Eclipse 的远程终端。你需要的所有线索都在那里。',
+    flagHash: '6a102e55154d1de588858f4907ec64676e998c7170448f3c3dbc30b93fd3087e',
     hints: [],
-    tools: ['source-viewer', 'railfence', 'ws-terminal', 'strings', 'image-lsb'],
+    tools: ['source-viewer', 'railfence', 'strings', 'image-lsb'],
     challengeType: 'combo-final3',
-    downloadFiles: ['challenge-21.exe', 'challenge-21.png'],
     webChallengeUrl: '/challenges/eclipse-terminal',
   },
 ];

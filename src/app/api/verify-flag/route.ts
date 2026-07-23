@@ -24,7 +24,7 @@ const FLAG_HASHES: Record<string, string> = {
   '17': '058716e43294521a5b0c234317f9a2e196d8cd0001eae4f3a185658a9676e958',  // flag{you_got_xor}
   '18': '8e64a38d454269a92cc0183558c5b905cad7581e1fc33a7d5c09113ce238eef6',  // flag{r3v3rs3_4nd_d3c0d3!}
   '19': '49fabd9fadc38ac1ec3bf48bf79e982601544d4773aaa7fb8486fe915f4330c9',  // flag{thr33_1n_0n3_g4t3}
-  '20': 'd62a2af5668074898e0471f75b4dceaa77f6ad253b98a418d9e8d645621db5d9',  // flag{m1rr0r_m4z3_c0nqu3r3d}
+  '20': 'b7a193b75e355f5816ff41929005e9f02134fa49a3ff03c19e75eacce9f965b1',  // flag{mirror_maze_conquered!}
   '21': '6a102e55154d1de588858f4907ec64676e998c7170448f3c3dbc30b93fd3087e',  // flag{3cl1ps3_l0c4t10n_b31j1ng_h41d14n}
 };
 
