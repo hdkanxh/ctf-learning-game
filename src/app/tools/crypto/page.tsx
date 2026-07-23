@@ -39,7 +39,7 @@ export default function CryptoToolsPage() {
       </div>
 
       {/* 工具标签切换 */}
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-6 overflow-x-auto pb-1">
         {tabs.map((tab) => (
           <button
             key={tab.key}

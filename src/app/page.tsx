@@ -7,7 +7,7 @@ export default function HomePage() {
   const { progress } = useProgress();
 
   const completedCount = progress.completedLevels.length;
-  const totalLevels = 21; // 不含结局（22）
+  const totalLevels = 22; // 关卡 0-21 共 22 关
 
   return (
     <div className="min-h-[80vh] flex flex-col items-center justify-center">

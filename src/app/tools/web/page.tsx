@@ -141,7 +141,7 @@ export default function WebToolsPage() {
         <p className="text-gray-500">查看源码、修改 Cookie、构造 HTTP 请求</p>
       </div>
 
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-6 overflow-x-auto pb-1">
         {tabs.map((tab) => (
           <button
             key={tab.key}

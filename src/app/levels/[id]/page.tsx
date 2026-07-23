@@ -2,6 +2,7 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
+import confetti from 'canvas-confetti';
 import { getLevelById } from '@/data/levels';
 import { useProgress } from '@/hooks/useProgress';
 
@@ -16,6 +17,9 @@ export default function LevelPage() {
   const [flagInput, setFlagInput] = useState('');
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [submitting, setSubmitting] = useState(false);
+
+  const completed = progress.completedLevels.includes(levelId);
+  const unlockedHintCount = getUnlockedHints(levelId);
 
   if (!level) {
     return (
@@ -40,9 +44,6 @@ export default function LevelPage() {
     );
   }
 
-  const completed = progress.completedLevels.includes(levelId);
-  const unlockedHintCount = getUnlockedHints(levelId);
-
   const handleSubmit = async () => {
     if (!flagInput.trim()) return;
     setSubmitting(true);
@@ -59,6 +60,13 @@ export default function LevelPage() {
       if (data.success) {
         setFeedback({ type: 'success', message: data.message });
         completeLevel(levelId);
+        // 彩带特效
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#3b82f6', '#22c55e', '#eab308', '#a855f7', '#f97316'],
+        });
         // 3 秒后自动跳转下一关
         setTimeout(() => {
           router.push(levelId === 21 ? '/ending' : `/levels/${levelId + 1}`);
@@ -265,7 +273,7 @@ export default function LevelPage() {
       {/* Flag 提交 */}
       <div className="card p-6 mb-6">
         <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">🚩 提交 Flag</h3>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <input
             type="text"
             value={flagInput}

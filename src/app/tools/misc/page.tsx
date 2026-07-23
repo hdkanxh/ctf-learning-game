@@ -27,7 +27,7 @@ export default function MiscToolsPage() {
         <p className="text-gray-500">图片分析、文件检查、流量查看</p>
       </div>
 
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-6 overflow-x-auto pb-1">
         {tabs.map((tab) => (
           <button
             key={tab.key}
