@@ -34,15 +34,12 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
-          <a
-            href="https://github.com/hdkanxh/ctf-learning-game"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/github"
             className="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-700 hover:bg-gray-50 transition-all"
-            title="GitHub 开源"
           >
             ⭐ Star
-          </a>
+          </Link>
         </nav>
       </div>
     </header>
